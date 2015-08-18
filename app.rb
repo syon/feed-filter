@@ -24,7 +24,7 @@ end
 
 get '/feed' do
   feed_url = params[:url]
-  return "" unless URI.regexp(%w(http https)) =~ feed_url
+  return "Invalid URL." unless URI.regexp(%w(http https)) =~ feed_url
 
   ff = FeedFilter.new(feed_url, $user_rules, {debug: false})
   content = ff.get_filtered_content
