@@ -1,3 +1,4 @@
+require 'uri'
 require_relative 'lib/feed_filter'
 
 $user_rules = {
