@@ -23,6 +23,9 @@ class FeedFilter
       if is_ng_domain(url)
         delete_element(el)
       end
+
+      # Hotentry
+      edit_hotentry(el)
     end
 
     show_all_titles() if @debug
@@ -30,6 +33,18 @@ class FeedFilter
     formatter = REXML::Formatters::Default.new
     result = formatter.write(@doc.root, '')
     @doc.xml_decl.to_s + "\n" + result
+  end
+
+  def edit_hotentry(el)
+    url = el.elements['link'].text
+    if url =~ /^http:\/\/b.hatena.ne.jp/
+      content = el.elements['content:encoded'].text
+      content.gsub! /<\/?blockquote[^>]*>/i, ""
+      content.gsub! /<p><a href="http:\/\/b.hatena.ne.jp\/entry\/.*$/i, ""
+      cntimg = "<img src=\"http://b.hatena.ne.jp/entry/image/\\1\" /></cite>"
+      content.gsub! /<a href="(.*?)".*?<\/a><\/cite>/i, cntimg
+      content.gsub! /$/, "<iframe src=\"http://b.hatena.ne.jp/entry/#{url}\">"
+    end
   end
 
   def delete_element(el)
