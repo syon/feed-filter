@@ -7,6 +7,7 @@ class FeedFilter
 
   def initialize(feed_url, rules, opt={})
     @doc = REXML::Document.new(open(feed_url).read)
+    @feed_url = feed_url
     @charset = @doc.xml_decl.encoding
     @rules = rules
     @debug = opt[:debug]
@@ -36,13 +37,13 @@ class FeedFilter
   end
 
   def edit_hotentry(el)
-    url = el.elements['link'].text
-    if url =~ /^http:\/\/b.hatena.ne.jp/
+    if @feed_url.start_with? "http://b.hatena.ne.jp"
       content = el.elements['content:encoded'].text
       content.gsub! /<\/?blockquote[^>]*>/i, ""
       content.gsub! /<p><a href="http:\/\/b.hatena.ne.jp\/entry\/.*$/i, ""
       cntimg = "<img src=\"http://b.hatena.ne.jp/entry/image/\\1\" /></cite>"
       content.gsub! /<a href="(.*?)".*?<\/a><\/cite>/i, cntimg
+      url = el.elements['link'].text
       content.gsub! /$/, "<iframe src=\"http://b.hatena.ne.jp/entry/#{url}\">"
     end
   end
