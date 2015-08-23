@@ -36,3 +36,8 @@ get '/feed' do
     return "Error"
   end
 end
+
+get 'oauth2callback' do
+  p params
+  params
+end
