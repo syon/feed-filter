@@ -37,7 +37,7 @@ get '/feed' do
   end
 end
 
-get 'oauth2callback' do
+get '/oauth2callback' do
   p params
   params
 end
