@@ -1,3 +1,13 @@
 - content_for :title do "This is :index title" end
 
 h1.text-center = @say
+
+span id="signinButton"
+  span class="g-signin" data-callback="signinCallback" data-clientid="143199896682-59n3o4s3f4nd1p5u5prn8gfqtao70bbb.apps.googleusercontent.com" data-cookiepolicy="single_host_origin" data-requestvisibleactions="http://schemas.google.com/AddActivity" data-scope="https://www.googleapis.com/auth/plus.login"
+
+javascript:
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/client:plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
