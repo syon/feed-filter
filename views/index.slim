@@ -11,3 +11,19 @@ javascript:
     po.src = 'https://apis.google.com/js/client:plusone.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
   })();
+
+  function signinCallback(authResult) {
+    if (authResult['access_token']) {
+      alert("正常に承認されました");
+      // 正常に承認されました
+      // ユーザーが認証されたのでログイン ボタンを非表示にします。例:
+      document.getElementById('signinButton').setAttribute('style', 'display: none');
+    } else if (authResult['error']) {
+      alert("エラーが発生しました。");
+      // エラーが発生しました。
+      // 可能性のあるエラー コード:
+      //   「access_denied」 - ユーザーがアプリへのアクセスを拒否しました
+      //   「immediate_failed」 - ユーザーを自動的にログインできませんでした
+      console.log("There was an error: ", authResult);
+    }
+  }
