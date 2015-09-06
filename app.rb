@@ -45,6 +45,13 @@ get '/feed/:feed_id' do
 end
 
 get '/oauth2callback' do
+  puts "==== get /oauth2callback ===="
+  p params
+  params
+end
+
+post '/oauth2callback' do
+  puts "==== post /oauth2callback ===="
   p params
   params
 end
