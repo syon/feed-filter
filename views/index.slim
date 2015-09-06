@@ -14,7 +14,8 @@ javascript:
 
   function signinCallback(authResult) {
     if (authResult['access_token']) {
-      alert("正常に承認されました");
+      console.info("正常に承認されました");
+      console.log(authResult)
       // 正常に承認されました
       // ユーザーが認証されたのでログイン ボタンを非表示にします。例:
       document.getElementById('signinButton').setAttribute('style', 'display: none');
