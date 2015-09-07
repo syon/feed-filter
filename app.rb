@@ -4,7 +4,8 @@ require_relative 'lib/feed_filter'
 $user_feeds = {
   '1441518694' => {feed_url: 'http://b.hatena.ne.jp/hotentry.rss'},
   '1441518830' => {feed_url: 'http://japanese.engadget.com/rss.xml'},
-  '1441521964' => {feed_url: 'http://qiita.com/tags/Docker/feed.atom'}
+  '1441521964' => {feed_url: 'http://qiita.com/tags/Docker/feed.atom'},
+  '1441628745' => {feed_url: 'http://ggsoku.com/feed/'}
 }
 
 $user_rules = {
@@ -16,7 +17,13 @@ $user_rules = {
   },
   '1441518830' => {
     mute: {
-      title: %w(東芝),
+      title: %w(動画 東芝),
+      domain: %w()
+    }
+  },
+  '1441628745' => {
+    mute: {
+      title: %w(Xperia リーク),
       domain: %w()
     }
   }
