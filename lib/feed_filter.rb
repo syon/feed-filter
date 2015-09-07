@@ -16,17 +16,24 @@ class FeedFilter
   def get_filtered_content()
     @doc.elements.each('//item') do |el|
       title = el.elements['title'].text
+      url = el.elements['link'].text
+      ctt = get_content(el)
+
       if is_ng_title(title)
         delete_element(el)
       end
 
-      url = el.elements['link'].text
       if is_ng_domain(url)
         delete_element(el)
       end
 
-      # Hotentry
-      edit_hotentry(el)
+      if @feed_url.start_with? "http://b.hatena.ne.jp"
+        edit_hotentry(ctt)
+      else
+        append_hatebu_count(url, ctt)
+      end
+
+      append_hatebu_iframe(url, ctt)
     end
 
     show_all_titles() if @debug
@@ -36,16 +43,29 @@ class FeedFilter
     @doc.xml_decl.to_s + "\n" + result
   end
 
-  def edit_hotentry(el)
-    if @feed_url.start_with? "http://b.hatena.ne.jp"
-      content = el.elements['content:encoded'].text
-      content.gsub! %r{</?blockquote[^>]*>}i, ""
-      content.gsub! %r{ (alt|title)=".*?"}i, ""
-      content.gsub! %r{<p><a href="http://b.hatena.ne.jp/entry/http.*?</p>}i, ""
-      cntimg = "<img src=\"http://b.hatena.ne.jp/entry/image/\\1\" /></cite>"
-      content.gsub! %r{<a href="(.*?)".*?</a></cite>}i, cntimg
-      url = el.elements['link'].text
-      content.gsub! %r{$}, "<iframe src=\"http://b.hatena.ne.jp/entry/#{url}\"></iframe>"
+  def edit_hotentry(ctt)
+    ctt.gsub! %r{</?blockquote[^>]*>}i, ""
+    ctt.gsub! %r{ (alt|title)=".*?"}i, ""
+    ctt.gsub! %r{<p><a href="http://b.hatena.ne.jp/entry/http.*?</p>}i, ""
+    cntimg = "<img src=\"http://b.hatena.ne.jp/entry/image/\\1\" /></cite>"
+    ctt.gsub! %r{<a href="(.*?)".*?</a></cite>}i, cntimg
+  end
+
+  def append_hatebu_count(url, ctt)
+    cntimg = %{<cite><img src="http://b.hatena.ne.jp/entry/image/#{url}" /></cite>}
+    ctt.gsub! %r{^}, cntimg
+  end
+
+  def append_hatebu_iframe(url, ctt)
+    iframe = %{<iframe src="http://b.hatena.ne.jp/entry/#{url}"></iframe>}
+    ctt.gsub! %r{$}, iframe
+  end
+
+  def get_content(el)
+    if el.elements['content:encoded']
+      return el.elements['content:encoded'].text
+    elsif el.elements['description']
+      return el.elements['description'].text
     end
   end
 
