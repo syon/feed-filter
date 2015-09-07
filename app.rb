@@ -42,7 +42,7 @@ get '/feed/:feed_id' do
 
     raise unless URI.regexp(%w(http https)) =~ feed_url
 
-    ff = FeedFilter.new(feed_url, rule, {debug: false})
+    ff = FeedFilter.new(feed_url, rule, {debug: true})
     content = ff.get_filtered_content
     content_type :"application/xml; charset=#{ff.charset}"
     content
