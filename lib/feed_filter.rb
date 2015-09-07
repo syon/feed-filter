@@ -27,6 +27,8 @@ class FeedFilter
         delete_element(el)
       end
 
+      clean_invalid_content(ctt)
+
       if @feed_url.start_with? "http://b.hatena.ne.jp"
         edit_hotentry(ctt)
       else
@@ -58,6 +60,10 @@ class FeedFilter
     ctt.gsub! %r{<a href="(.*?)".*?</a></cite>}i, cntimg
   end
 
+  def clean_invalid_content(ctt)
+    ctt.gsub! %r{<[^<]*?\.\.\.$}, ""
+  end
+
   def append_hatebu_count(url, ctt)
     cntimg = %{<cite><img src="http://b.hatena.ne.jp/entry/image/#{url}" /></cite>}
     ctt.gsub! %r{\A}, cntimg
@@ -65,7 +71,6 @@ class FeedFilter
 
   def append_hatebu_iframe(url, ctt)
     no_protocol_url = url.gsub %r{https?://}, ""
-    puts no_protocol_url
     iframe = %{<iframe src="http://b.hatena.ne.jp/entry/#{no_protocol_url}"></iframe>}
     ctt << iframe
   end
