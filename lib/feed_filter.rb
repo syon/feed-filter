@@ -16,7 +16,7 @@ class FeedFilter
   def get_filtered_content()
     @doc.elements.each('//item') do |el|
       title = el.elements['title'].text
-      url = el.elements['link'].text
+      url = clean_url(el)
       ctt = get_content(el)
 
       if is_ng_title(title)
@@ -41,6 +41,13 @@ class FeedFilter
     formatter = REXML::Formatters::Default.new
     result = formatter.write(@doc.root, '')
     @doc.xml_decl.to_s + "\n" + result
+  end
+
+  def clean_url(el)
+    url = el.elements['link'].text
+    url.gsub! %r{\?ncid=rss_truncated}, ""
+    el.elements['link'].text = url
+    url
   end
 
   def edit_hotentry(ctt)
