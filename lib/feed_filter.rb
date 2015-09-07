@@ -39,13 +39,13 @@ class FeedFilter
   def edit_hotentry(el)
     if @feed_url.start_with? "http://b.hatena.ne.jp"
       content = el.elements['content:encoded'].text
-      content.gsub! /<\/?blockquote[^>]*>/i, ""
+      content.gsub! %r{</?blockquote[^>]*>}i, ""
       content.gsub! %r{ (alt|title)=".*?"}i, ""
-      content.gsub! /<p><a href="http:\/\/b.hatena.ne.jp\/entry\/http.*?<\/p>/i, ""
+      content.gsub! %r{<p><a href="http://b.hatena.ne.jp/entry/http.*?</p>}i, ""
       cntimg = "<img src=\"http://b.hatena.ne.jp/entry/image/\\1\" /></cite>"
-      content.gsub! /<a href="(.*?)".*?<\/a><\/cite>/i, cntimg
+      content.gsub! %r{<a href="(.*?)".*?</a></cite>}i, cntimg
       url = el.elements['link'].text
-      content.gsub! /$/, "<iframe src=\"http://b.hatena.ne.jp/entry/#{url}\">"
+      content.gsub! %r{$}, "<iframe src=\"http://b.hatena.ne.jp/entry/#{url}\"></iframe>"
     end
   end
 
