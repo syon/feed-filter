@@ -58,8 +58,9 @@ class FeedFilter
     ctt.gsub! %r{<p><a href="http://b.hatena.ne.jp/entry/http.*?</p>}i, ""
     cntimg = "<img src=\"http://b.hatena.ne.jp/entry/image/\\1\" /></cite>"
     ctt.gsub! %r{<a href="(.*?)".*?</a></cite>}i, cntimg
+
     hbc = el.elements['hatena:bookmarkcount'].text
-    ctt.gsub! %r{</cite>}i, "[#{hbc}]</cite>"
+    el.elements['description'].text = "[#{hbc}] " + el.elements['description'].text
   end
 
   def clean_invalid_content(ctt)
