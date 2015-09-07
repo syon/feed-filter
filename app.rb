@@ -47,7 +47,7 @@ get '/feed/:feed_id' do
     content_type :"application/xml; charset=#{ff.charset}"
     content
   rescue => e
-    return "Error" + e.to_s
+    return "Error"
   end
 end
 
