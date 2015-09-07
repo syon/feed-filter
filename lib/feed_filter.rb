@@ -53,12 +53,12 @@ class FeedFilter
 
   def append_hatebu_count(url, ctt)
     cntimg = %{<cite><img src="http://b.hatena.ne.jp/entry/image/#{url}" /></cite>}
-    ctt.gsub! %r{^}, cntimg
+    ctt.gsub! %r{\A}, cntimg
   end
 
   def append_hatebu_iframe(url, ctt)
     iframe = %{<iframe src="http://b.hatena.ne.jp/entry/#{url}"></iframe>}
-    ctt.gsub! %r{$}, iframe
+    ctt << iframe
   end
 
   def get_content(el)
