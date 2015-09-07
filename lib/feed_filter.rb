@@ -40,7 +40,7 @@ class FeedFilter
     if @feed_url.start_with? "http://b.hatena.ne.jp"
       content = el.elements['content:encoded'].text
       content.gsub! /<\/?blockquote[^>]*>/i, ""
-      content.gsub! / (alt|title)=".*?"/i, ""
+      content.gsub! %r{ (alt|title)=".*?"}i, ""
       content.gsub! /<p><a href="http:\/\/b.hatena.ne.jp\/entry\/http.*?<\/p>/i, ""
       cntimg = "<img src=\"http://b.hatena.ne.jp/entry/image/\\1\" /></cite>"
       content.gsub! /<a href="(.*?)".*?<\/a><\/cite>/i, cntimg
