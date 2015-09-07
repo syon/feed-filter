@@ -30,7 +30,7 @@ class FeedFilter
       clean_invalid_content(ctt)
 
       if @feed_url.start_with? "http://b.hatena.ne.jp"
-        edit_hotentry(ctt)
+        edit_hotentry(el, ctt)
       else
         append_hatebu_count(url, ctt)
       end
@@ -52,12 +52,14 @@ class FeedFilter
     url
   end
 
-  def edit_hotentry(ctt)
+  def edit_hotentry(el, ctt)
     ctt.gsub! %r{</?blockquote[^>]*>}i, ""
     ctt.gsub! %r{ (alt|title)=".*?"}i, ""
     ctt.gsub! %r{<p><a href="http://b.hatena.ne.jp/entry/http.*?</p>}i, ""
     cntimg = "<img src=\"http://b.hatena.ne.jp/entry/image/\\1\" /></cite>"
     ctt.gsub! %r{<a href="(.*?)".*?</a></cite>}i, cntimg
+    hbc = el.elements['hatena:bookmarkcount'].text
+    ctt.gsub! %r{</cite>}i, "[#{hbc}]</cite>"
   end
 
   def clean_invalid_content(ctt)
