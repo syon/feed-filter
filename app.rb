@@ -5,7 +5,8 @@ $user_feeds = {
   '1441518694' => {feed_url: 'http://b.hatena.ne.jp/hotentry.rss'},
   '1441518830' => {feed_url: 'http://japanese.engadget.com/rss.xml'},
   '1441521964' => {feed_url: 'http://qiita.com/tags/Docker/feed.atom'},
-  '1441628745' => {feed_url: 'http://ggsoku.com/feed/'}
+  '1441628745' => {feed_url: 'http://ggsoku.com/feed/'},
+  '1441724965' => {feed_url: 'http://blog.livedoor.jp/itsoku/index.rdf'}
 }
 
 $user_rules = {
