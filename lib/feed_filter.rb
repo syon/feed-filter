@@ -73,8 +73,13 @@ class FeedFilter
   end
 
   def append_hatebu_iframe(url, ctt)
-    no_protocol_url = url.gsub %r{https?://}, ""
-    iframe = %{<iframe src="http://b.hatena.ne.jp/entry/#{no_protocol_url}"></iframe>}
+    edited_url = nil
+    if url.start_with? "https"
+      edited_url = url.gsub %r{https://}, "s/"
+    else
+      edited_url = url.gsub %r{http://}, ""
+    end
+    iframe = %{<iframe src="http://b.hatena.ne.jp/entry/#{edited_url}"></iframe>}
     ctt << iframe
   end
 
