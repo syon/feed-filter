@@ -32,6 +32,8 @@ $user_rules = {
 
 get '/' do
   @say = "Hello World."
+  @dists = Dists.all
+  p @dists
   slim :index
 end
 
