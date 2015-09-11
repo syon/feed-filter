@@ -5,20 +5,14 @@ class FeedFilter
 
   attr_accessor :charset
 
-  def initialize(feed_url, rules, opt={})
-    @doc = REXML::Document.new(open(feed_url).read)
-    @feed_url = feed_url
+  def initialize(feed_id)
+    @feed = Feeds.where(:feed_id => feed_id.to_i).first
+    p @feed
+    @feed_url = @feed.feed_url
+    @doc = REXML::Document.new(open(@feed_url).read)
     @charset = @doc.xml_decl.encoding
-    @rules = rules
-    @debug = opt[:debug]
-    feed = Feeds.all.first
-    p feed
-    p feed.id
-    p feed.feed_url
-  end
-
-  def get_feed(feed_id)
-    Feeds.where(:feed_id => feed_id).first
+    @rules = @feed.filter_rules
+    @debug = true
   end
 
   def get_filtered_content()
