@@ -11,6 +11,7 @@ class FeedFilter
     @charset = @doc.xml_decl.encoding
     @rules = rules
     @debug = opt[:debug]
+    p Feeds.all
   end
 
   def get_filtered_content()

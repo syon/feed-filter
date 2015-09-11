@@ -5,5 +5,5 @@ ActiveRecord::Base.configurations = YAML.load(ERB.new(File.read('config/database
 ActiveRecord::Base.establish_connection(ENV['RACK_ENV'].to_sym)
 use ActiveRecord::ConnectionAdapters::ConnectionManagement # for Connection Error
 
-class Dists < ActiveRecord::Base
+class Feeds < ActiveRecord::Base
 end
