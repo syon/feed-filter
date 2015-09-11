@@ -11,7 +11,7 @@ class FeedFilter
     @charset = @doc.xml_decl.encoding
     @rules = rules
     @debug = opt[:debug]
-    feed = get_feed(12345)
+    feed = Feeds.all.first
     p feed
     p feed.id
     p feed.feed_url
