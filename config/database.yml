@@ -1,11 +1,11 @@
 development:
   adapter: postgresql
   encoding: unicode
-  host:
-  database:
-  username:
-  port:
-  password:
+  host: <%= ENV['host'] %>
+  database: <%= ENV['database'] %>
+  username: <%= ENV['username'] %>
+  port: <%= ENV['port'] %>
+  password: <%= ENV['password'] %>
 
 test:
   adapter: sqlite3
