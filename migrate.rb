@@ -1,9 +1,8 @@
 require 'active_record'
+require 'erb'
 
-ActiveRecord::Base.establish_connection(
-  "adapter" => "sqlite3",
-  "database" => "db/development.sqlite3"
-)
+ActiveRecord::Base.configurations = YAML.load(ERB.new(File.read('config/database.yml')).result)
+ActiveRecord::Base.establish_connection(:development)
 
 class CreateFeeds < ActiveRecord::Migration
   def self.up
