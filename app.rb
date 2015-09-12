@@ -16,15 +16,3 @@ get '/feed/:feed_id' do
     return "Error"
   end
 end
-
-get '/oauth2callback' do
-  puts "==== get /oauth2callback ===="
-  p params
-  params
-end
-
-post '/oauth2callback' do
-  puts "==== post /oauth2callback ===="
-  p params
-  params
-end
