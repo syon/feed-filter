@@ -17,5 +17,5 @@ group :development, :test do
 end
 
 puts "=== Gemfile ==="
-p ENV
-puts "===/Gemfile ==="
+p ENV['RACK_ENV']
+puts "=== Gemfile ==="
