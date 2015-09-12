@@ -1,11 +1,28 @@
 Feed Filter
 ===========
 
-### setup
+Provides feeds with your filtering rules.
 
-requires: `bundler`, `foreman`
+
+### Required
+
+- Gems
+  - bundler
+  - foreman
+- Database
+  - SQLite3 (develoment)
+  - PostgreSQL (production)
+
+
+### Install
 
 ```sh
 $ bundle install --path vendor/bundle
+```
+
+
+### Local running
+
+```sh
 $ foreman start
 ```
