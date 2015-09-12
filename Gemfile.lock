@@ -22,6 +22,7 @@ GEM
     kgio (2.9.2)
     minitest (5.8.0)
     multi_json (1.10.1)
+    pg (0.18.3)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
@@ -62,6 +63,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  pg
   rake
   sinatra
   sinatra-activerecord
