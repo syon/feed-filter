@@ -1,6 +1,5 @@
 /.bundle/
 /vendor/
 .env
-database.yml
 db/schema.rb
 db/*.sqlite3
