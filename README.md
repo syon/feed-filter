@@ -16,8 +16,18 @@ Provides feeds with your filtering rules.
 
 ### Install
 
+#### Install gems
+
 ```sh
 $ bundle install --path vendor/bundle
+```
+
+#### Migration
+
+```sh
+$ bundle exec ruby migrate.rb
+
+$ bundle exec rake db:seed
 ```
 
 
