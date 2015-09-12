@@ -15,3 +15,7 @@ group :development, :test do
   # sqlite3 is not supported on Heroku.
   gem 'sqlite3'
 end
+
+puts "=== Gemfile ==="
+p ENV
+puts "===/Gemfile ==="
