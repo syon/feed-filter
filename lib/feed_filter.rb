@@ -11,8 +11,32 @@ class FeedFilter
     @feed_url = @feed.feed_url
     @doc = REXML::Document.new(open(@feed_url).read)
     @charset = @doc.xml_decl.encoding
-    @rules = @feed.filter_rules
+    @rules = get_filter_rules(@feed.feed_id)
     @debug = true
+  end
+
+  def get_filter_rules(feed_id)
+    rules = {
+      '1441518694' => {
+        mute: {
+          title: %w(PR: スポ 新聞 ニュース Windows),
+          domain: %w(netgeek.biz hamusoku.com togetter.com)
+        }
+      },
+      '1441518830' => {
+        mute: {
+          title: %w(動画 東芝),
+          domain: %w()
+        }
+      },
+      '1441628745' => {
+        mute: {
+          title: %w(Xperia リーク),
+          domain: %w()
+        }
+      }
+    }
+    rules[feed_id.to_s]
   end
 
   def get_filtered_content()
