@@ -11,32 +11,8 @@ class FeedFilter
     @feed_url = @feed.feed_url
     @doc = REXML::Document.new(open(@feed_url).read)
     @charset = @doc.xml_decl.encoding
-    @rules = get_filter_rules(@feed.feed_id)
+    @rules = @feed.filter_rules
     @debug = true
-  end
-
-  def get_filter_rules(feed_id)
-    rules = {
-      '1441518694' => {
-        mute: {
-          title: %w(PR: スポ 新聞 ニュース Windows),
-          domain: %w(netgeek.biz hamusoku.com togetter.com)
-        }
-      },
-      '1441518830' => {
-        mute: {
-          title: %w(動画 東芝),
-          domain: %w()
-        }
-      },
-      '1441628745' => {
-        mute: {
-          title: %w(Xperia リーク),
-          domain: %w()
-        }
-      }
-    }
-    rules[feed_id.to_s]
   end
 
   def get_filtered_content()
@@ -123,7 +99,6 @@ class FeedFilter
     if @debug
       title = el.elements['title'].text
       el.elements['title'].text = "(Filtered) #{title}"
-      puts "Filtered by title: #{title}"
     else
       @doc.root.elements.delete el
     end
@@ -139,7 +114,7 @@ class FeedFilter
 
     def is_ng_title(title)
       return false unless @rules
-      @rules[:mute][:title].each do |word|
+      @rules["mute"]["title"].each do |word|
         return true if title.include? word
       end
       false
@@ -148,7 +123,7 @@ class FeedFilter
     def is_ng_domain(url)
       domain = get_domain(url)
       return false unless @rules
-      return true if @rules[:mute][:domain].include? domain
+      return true if @rules["mute"]["domain"].include? domain
       false
     end
 
