@@ -1,5 +1,8 @@
 require 'active_record'
 require 'erb'
+require 'dotenv'
+
+Dotenv.load
 
 ActiveRecord::Base.configurations = YAML.load(ERB.new(File.read('config/database.yml')).result)
 ActiveRecord::Base.establish_connection(:development)

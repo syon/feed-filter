@@ -12,6 +12,6 @@ gem 'rake'
 gem 'pg'
 
 group :development, :test do
-  # sqlite3 is not supported on Heroku.
-  gem 'sqlite3'
+  gem 'dotenv'
+  gem 'sqlite3' # not supported on Heroku.
 end
