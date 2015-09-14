@@ -1,3 +1,17 @@
 - content_for :title do "This is :index title" end
 
 h1.text-center = @say
+
+table.table.table-bordered
+  tr
+    th feed_id
+    th feed_url
+    th mute titles
+    th mute domains
+
+  - @all_feeds.each do |f|
+    tr
+      td = f["feed_id"]
+      td = f["feed_url"]
+      td = f["filter_rules"]["mute"]["title"]
+      td = f["filter_rules"]["mute"]["domain"]

@@ -2,7 +2,8 @@ require 'uri'
 require_relative 'lib/feed_filter'
 
 get '/' do
-  @say = "Hello World."
+  @say = "Feed Filter"
+  @all_feeds = Feeds.all
   slim :index
 end
 
