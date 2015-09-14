@@ -1,0 +1,46 @@
+- feed_id: 1441518694
+  feed_url: http://b.hatena.ne.jp/hotentry.rss
+  filter_rules:
+    mute:
+      title:
+        - "PR:"
+        - スポ
+        - 新聞
+        - ニュース
+        - Windows
+      domain:
+        - netgeek.biz
+        - hamusoku.com
+        - togetter.com
+
+- feed_id: 1441518830
+  feed_url: http://japanese.engadget.com/rss.xml
+  filter_rules:
+    mute:
+      title:
+        - 動画
+        - 東芝
+      domain:
+
+- feed_id: 1441521964
+  feed_url: http://qiita.com/tags/Docker/feed.atom
+  filter_rules:
+    mute:
+      title:
+      domain:
+
+- feed_id: 1441628745
+  feed_url: http://ggsoku.com/feed/
+  filter_rules:
+    mute:
+      title:
+        - Xperia
+        - リーク
+      domain:
+
+- feed_id: 1441724965
+  feed_url: http://blog.livedoor.jp/itsoku/index.rdf
+  filter_rules:
+    mute:
+      title:
+      domain:

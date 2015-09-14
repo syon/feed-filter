@@ -1,8 +1,15 @@
-# coding: utf-8
-require "csv"
+require "yaml"
 
 Feeds.delete_all
-CSV.foreach('db/seeds_data/feeds.csv') do |row|
-  Feeds.create(:feed_id => row[0], :feed_url => row[1], :filter_rules => row[2])
+
+feeds = YAML.load_file 'db/seeds_data/feeds.yml'
+feeds.each do |f|
+  puts "Creating... (feed_id: #{f["feed_id"]})"
+  Feeds.create(
+    :feed_id => f["feed_id"],
+    :feed_url => f["feed_url"],
+    :filter_rules => f["filter_rules"]
+  )
 end
+
 puts "Feeds.count #{Feeds.count}"

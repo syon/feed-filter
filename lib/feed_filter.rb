@@ -86,7 +86,9 @@ class FeedFilter
     ctt.gsub! %r{<a href="(.*?)".*?</a></cite>}i, cntimg
 
     hbc = el.elements['hatena:bookmarkcount'].text
-    el.elements['description'].text = "[#{hbc}] " + el.elements['description'].text
+    if el.elements['description'].text
+      el.elements['description'].text = "[#{hbc}] " + el.elements['description'].text
+    end
   end
 
   def clean_invalid_content(ctt)
