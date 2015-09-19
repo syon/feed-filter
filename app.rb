@@ -34,3 +34,15 @@ get '/view/:feed_id' do
   @feed = ff.fetch_feed(params[:feed_id])
   slim :view
 end
+
+get '/edit/:feed_id' do
+  ff = FeedFilter.new
+  @feed = ff.fetch_feed(params[:feed_id])
+  slim :edit
+end
+
+post '/edit/:feed_id' do
+  ff = FeedFilter.new
+  feed = ff.update(params)
+  redirect to("/view/#{feed.feed_id}")
+end

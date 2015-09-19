@@ -23,6 +23,15 @@ class FeedFilter
     )
   end
 
+  def update(params)
+    feed = Feeds.where(:feed_id => params[:feed_id].to_i).first
+    args = make_feed_args(params)
+    feed.feed_url = args[:f_url]
+    feed.filter_rules = args[:f_rules]
+    feed.save!
+    feed
+  end
+
   def make_feed_args(params)
     {
       f_id: Time.now.to_i,
