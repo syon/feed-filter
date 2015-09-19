@@ -20,6 +20,26 @@ class FeedFilter
 
   def create(params)
     p params
+    args = make_feed_args(params)
+    p args
+    Feeds.create(
+      :feed_id => args[:f_id],
+      :feed_url => args[:f_url],
+      :filter_rules => args[:f_rules]
+    )
+  end
+
+  def make_feed_args(params)
+    {
+      f_id: Time.now.to_i,
+      f_url: params[:feed_url],
+      f_rules: {
+        mute: {
+          title: params[:"mute.title"],
+          domain: params[:"mute.domain"]
+        }
+      }
+    }
   end
 
   def get_filtered_content()

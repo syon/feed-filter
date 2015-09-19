@@ -3,7 +3,13 @@
 h1.text-center New Filter
 
 form method="POST"
-  input type="text" name="feed_url" placeholder="Feed URL"
-  input type="text" name="mute.title" placeholder="Muted word here"
-  input type="text" name="mute.domain" placeholder="www.example.com"
-  input type="submit"
+  .form-group
+    label Feed URL
+    input.form-control type="text" name="feed_url" placeholder="Feed URL"
+  .form-group
+    label Muted word in title
+    input.form-control type="text" name="mute.title" placeholder="Muted word here"
+  .form-group
+    label Muted domain in article
+    input.form-control type="text" name="mute.domain" placeholder="www.example.com"
+  button.btn.btn-default type="submit" Submit
