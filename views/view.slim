@@ -17,4 +17,4 @@ form method="POST"
     div = @feed.filter_rules["mute"]["domain"]
   .form-group
     label Secret
-    div = @feed.secret
+    div = !@feed.secret.nil?

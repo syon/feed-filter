@@ -25,6 +25,12 @@ class FeedFilter
 
   def update(params)
     feed = Feeds.where(:feed_id => params[:feed_id].to_i).first
+    if feed.secret
+      unless feed.secret == params[:secret].to_i
+        puts "Secret unmatched."
+        return feed
+      end
+    end
     args = make_feed_args(params)
     feed.feed_url = args[:f_url]
     feed.filter_rules = args[:f_rules]

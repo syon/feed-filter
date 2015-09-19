@@ -12,4 +12,10 @@ form method="POST"
   .form-group
     label Muted domain in article
     input.form-control type="text" name="mute.domain" placeholder="www.example.com" value="#{@feed.filter_rules["mute"]["domain"]}"
+
+  - if @feed.secret
+    .form-group
+      label Secret
+      input.form-control type="text" name="secret" placeholder="4 numbers" value=""
+
   button.btn.btn-default type="submit" Submit
