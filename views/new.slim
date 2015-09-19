@@ -1,0 +1,9 @@
+- content_for :title do "This is :index title" end
+
+h1.text-center New Filter
+
+form method="POST"
+  input type="text" name="feed_url" placeholder="Feed URL"
+  input type="text" name="mute.title" placeholder="Muted word here"
+  input type="text" name="mute.domain" placeholder="www.example.com"
+  input type="submit"

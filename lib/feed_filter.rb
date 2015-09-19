@@ -5,7 +5,10 @@ class FeedFilter
 
   attr_accessor :charset
 
-  def initialize(feed_id)
+  def initialize()
+  end
+
+  def fetch_feed(feed_id)
     @feed = Feeds.where(:feed_id => feed_id.to_i).first
     p @feed
     @feed_url = @feed.feed_url
@@ -13,6 +16,10 @@ class FeedFilter
     @charset = @doc.xml_decl.encoding
     @rules = @feed.filter_rules
     @debug = true
+  end
+
+  def create(params)
+    p params
   end
 
   def get_filtered_content()
