@@ -1,0 +1,14 @@
+- content_for :title do "This is :index title" end
+
+h1.text-center View Filter
+
+form method="POST"
+  .form-group
+    label Feed URL
+    span = @feed.feed_url
+  .form-group
+    label Muted word in title
+    / span = @feed.mute.title
+  .form-group
+    label Muted domain in article
+    / span = @feed.mute.domain

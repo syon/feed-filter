@@ -25,6 +25,12 @@ end
 
 post '/new' do
   ff = FeedFilter.new
-  ff.create(params)
-  slim :new
+  @feed = ff.create(params)
+  redirect to("/view/#{@feed.feed_id}")
+end
+
+get '/view/:feed_id' do
+  ff = FeedFilter.new
+  @feed = ff.fetch_feed(params[:feed_id])
+  slim :view
 end

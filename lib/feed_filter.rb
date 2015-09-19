@@ -10,12 +10,6 @@ class FeedFilter
 
   def fetch_feed(feed_id)
     @feed = Feeds.where(:feed_id => feed_id.to_i).first
-    p @feed
-    @feed_url = @feed.feed_url
-    @doc = REXML::Document.new(open(@feed_url).read)
-    @charset = @doc.xml_decl.encoding
-    @rules = @feed.filter_rules
-    @debug = true
   end
 
   def create(params)
@@ -43,6 +37,12 @@ class FeedFilter
   end
 
   def get_filtered_content()
+    @feed_url = @feed.feed_url
+    @doc = REXML::Document.new(open(@feed_url).read)
+    @charset = @doc.xml_decl.encoding
+    @rules = @feed.filter_rules
+    @debug = true
+
     @doc.elements.each('//item') do |el|
       title = el.elements['title'].text
       url = clean_url(el)
