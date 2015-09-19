@@ -114,6 +114,7 @@ class FeedFilter
 
     def is_ng_title(title)
       return false unless @rules
+      return false unless @rules["mute"]["title"]
       @rules["mute"]["title"].each do |word|
         return true if title.include? word
       end
@@ -123,6 +124,7 @@ class FeedFilter
     def is_ng_domain(url)
       domain = get_domain(url)
       return false unless @rules
+      return false unless @rules["mute"]["domain"]
       return true if @rules["mute"]["domain"].include? domain
       false
     end
