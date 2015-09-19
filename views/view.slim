@@ -15,3 +15,6 @@ form method="POST"
   .form-group
     label Muted domain in article
     div = @feed.filter_rules["mute"]["domain"]
+  .form-group
+    label Secret
+    div = @feed.secret

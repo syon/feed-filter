@@ -13,6 +13,7 @@ class CreateFeeds < ActiveRecord::Migration
       t.integer :feed_id
       t.string :feed_url
       t.json :filter_rules
+      t.integer :secret
       t.timestamps null: false
     end
   end

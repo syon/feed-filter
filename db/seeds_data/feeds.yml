@@ -37,6 +37,7 @@
         - Xperia
         - リーク
       domain:
+  secret: 9999
 
 - feed_id: 1441724965
   feed_url: http://blog.livedoor.jp/itsoku/index.rdf

@@ -8,7 +8,8 @@ feeds.each do |f|
   Feeds.create(
     :feed_id => f["feed_id"],
     :feed_url => f["feed_url"],
-    :filter_rules => f["filter_rules"]
+    :filter_rules => f["filter_rules"],
+    :secret => f["secret"]
   )
 end
 
