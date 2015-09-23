@@ -8,10 +8,10 @@ form method="POST"
     input.form-control type="text" name="feed_url" placeholder="Feed URL" value="#{@feed.feed_url}"
   .form-group
     label Muted word in title
-    input.form-control type="text" name="mute.title" placeholder="Muted word here" value="#{@feed.filter_rules["mute"]["title"]}"
+    input.form-control type="text" name="mute.title[]" placeholder="Muted word here" value="#{@feed.filter_rules["mute"]["title"]}"
   .form-group
     label Muted domain in article
-    input.form-control type="text" name="mute.domain" placeholder="www.example.com" value="#{@feed.filter_rules["mute"]["domain"]}"
+    input.form-control type="text" name="mute.domain[]" placeholder="www.example.com" value="#{@feed.filter_rules["mute"]["domain"]}"
 
   - if @feed.secret
     .form-group

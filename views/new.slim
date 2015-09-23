@@ -9,10 +9,10 @@ form.newfeed method="POST"
     input.form-control type="text" name="feed_url" placeholder="Feed URL"
   .form-group
     label Muted word in title
-    input.form-control type="text" name="mute.title" placeholder="Muted word here"
+    input.form-control type="text" name="mute.title[]" placeholder="Muted word here"
   .form-group
     label Muted domain in article
-    input.form-control type="text" name="mute.domain" placeholder="www.example.com"
+    input.form-control type="text" name="mute.domain[]" placeholder="www.example.com"
   .form-group
     label Secret (option)
     input.form-control type="number" name="secret" placeholder="4 numbers" maxlength="4"
