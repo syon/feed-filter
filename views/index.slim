@@ -2,14 +2,18 @@
 
 table.table.table-bordered
   tr
-    th feed_id
-    th feed_url
+    th feed id
+    th feed link
+    th source feed
     th mute titles
     th mute domains
 
   - @all_feeds.each do |f|
     tr
-      td = f["feed_id"]
+      td
+        a href="/view/#{f["feed_id"]}" = f["feed_id"]
+      td
+        a href="/feed/#{f["feed_id"]}" feed
       td = f["feed_url"]
       td = f["filter_rules"]["mute"]["title"]
       td = f["filter_rules"]["mute"]["domain"]
