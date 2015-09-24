@@ -18,7 +18,8 @@
 .navbar-inverse .navbar-brand {
   color: #fff;
 }
-.navbar-brand .fa {
+.navbar-brand .brand-icon {
+  font-size: 24px;
   margin-right: .3em;
 }
 
