@@ -2,6 +2,10 @@ body {
   background-color: #FAFAFA;
 }
 
+.btn .fa {
+  margin-right: .5em;
+}
+
 .newfeed {
   max-width: 600px;
   margin: 0 auto;
