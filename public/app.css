@@ -23,6 +23,13 @@
   margin-right: .3em;
 }
 
+.rff-view {
+  margin-top: 10px;
+}
+.rff-view .btn {
+  margin-left: 20px;
+}
+
 .newfeed {
   max-width: 600px;
   margin: 0 auto;

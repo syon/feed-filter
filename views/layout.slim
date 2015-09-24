@@ -11,6 +11,7 @@ html
     link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
     link rel="stylesheet" href="/octicons/octicons.css"
     link rel="stylesheet" href="/app.css"
+    script src="/app.js"
 
   body
 
@@ -20,6 +21,13 @@ html
           a.navbar-brand href="/"
             span class="brand-icon octicon octicon-radio-tower"
             | RSSフィードフィルタ
+        .collapse.navbar-collapse
+          form.rff-view.form-horizontal.navbar-form.navbar-right name="rffview"
+            .form-group.form-group-sm
+              input.form-control(name="feed_id" placeholder="1441234567" maxlength="10"
+              type="text" data-toggle="tooltip" data-placement="bottom"
+              title="フィードIDを入力して作成したフィルタの詳細を表示します。")
+            button.btn.btn-default.btn-sm type="submit" 表示
 
     .container
 
