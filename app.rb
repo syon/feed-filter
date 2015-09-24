@@ -51,7 +51,7 @@ post '/edit/:feed_id' do
   redirect to("/view/#{feed.feed_id}")
 end
 
-get '/trial' do
+get '/preview' do
   ff = FeedFilter.new
   @titles = ff.fetch_filtered_titles(params)
   @titles.to_json

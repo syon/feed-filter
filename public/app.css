@@ -30,6 +30,10 @@
   margin-left: 20px;
 }
 
+#trial-result .filtered {
+  text-decoration: line-through;
+}
+
 .newfeed {
   max-width: 600px;
   margin: 0 auto;

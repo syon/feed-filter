@@ -46,6 +46,7 @@ class FeedFilter
     @doc.elements.each('//item') do |el|
       titles << el.elements['title'].text
     end
+    @feed.destroy
     titles
   end
 
@@ -55,8 +56,8 @@ class FeedFilter
       f_url: params[:feed_url],
       f_rules: {
         mute: {
-          title: params[:"mute.title"].reject(&:blank?),
-          domain: params[:"mute.domain"].reject(&:blank?)
+          title: make_compact(params[:"mute.title"]),
+          domain: make_compact(params[:"mute.domain"])
         }
       }
     }
@@ -188,6 +189,13 @@ class FeedFilter
 
     def get_domain(url)
       url.match(%r{^(.+?)://(.+?):?(\d+)?(/.*)?$})[2]
+    end
+
+    def make_compact(arr)
+      unless arr.blank?
+        arr.reject(&:blank?)
+      end
+      arr
     end
 
 end
