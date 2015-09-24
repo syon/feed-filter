@@ -13,6 +13,7 @@
   background: rgba(0,0,0,0.8);
 }
 .navbar-brand {
+  padding-top: 13px;
   font-size: 20px;
 }
 .navbar-inverse .navbar-brand {
@@ -45,6 +46,8 @@
 }
 
 .feed.panel .panel-heading {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
 }
 .feed.panel .panel-title {
