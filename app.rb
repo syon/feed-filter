@@ -53,7 +53,7 @@ end
 
 post '/delete/:feed_id' do
   ff = FeedFilter.new
-  feed = ff.delete(params[:feed_id])
+  feed = ff.delete(params)
   redirect to('/')
 end
 

@@ -20,14 +20,15 @@ class FeedFilter
     Feeds.create(
       :feed_id => args[:f_id],
       :feed_url => args[:f_url],
-      :filter_rules => args[:f_rules]
+      :filter_rules => args[:f_rules],
+      :secret => args[:secret]
     )
   end
 
   def update(params)
     feed = Feeds.where(:feed_id => params[:feed_id].to_i).first
     if feed.secret
-      unless feed.secret == params[:secret].to_i
+      unless feed.secret == params[:secret]
         puts "Secret unmatched."
         return feed
       end
@@ -39,10 +40,11 @@ class FeedFilter
     feed
   end
 
-  def delete(feed_id)
+  def delete(params)
+    feed_id = params[:feed_id]
     feed = Feeds.where(:feed_id => feed_id.to_i).first
     if feed.secret
-      unless feed.secret == params[:secret].to_i
+      unless feed.secret == params[:secret]
         puts "Secret unmatched."
         return feed
       end
@@ -70,7 +72,8 @@ class FeedFilter
           title: make_compact(params[:"mute.title"]),
           domain: make_compact(params[:"mute.domain"])
         }
-      }
+      },
+      secret: params[:secret]
     }
   end
 
