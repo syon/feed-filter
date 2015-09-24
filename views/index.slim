@@ -1,19 +1,21 @@
 - content_for :title do "This is :index title" end
 
-table.table.table-bordered
-  tr
-    th feed id
-    th feed link
-    th source feed
-    th mute titles
-    th mute domains
-
-  - @all_feeds.each do |f|
-    tr
-      td
-        a href="/view/#{f["feed_id"]}" = f["feed_id"]
-      td
-        a href="/feed/#{f["feed_id"]}" feed
-      td = f["feed_url"]
-      td = f["filter_rules"]["mute"]["title"]
-      td = f["filter_rules"]["mute"]["domain"]
+- @all_feeds.each do |f|
+  .feed.panel.panel-default
+    .panel-heading
+      h3.panel-title = f["feed_id"]
+    .panel-body
+      table.table.no-border
+        tr
+          th feed link
+          td
+            a href="/feed/#{f["feed_id"]}" = "/feed/#{f["feed_id"]}"
+        tr
+          th source feed
+          td = f["feed_url"]
+        tr
+          th mute titles
+          td = f["filter_rules"]["mute"]["title"]
+        tr
+          th mute domains
+          td = f["filter_rules"]["mute"]["domain"]

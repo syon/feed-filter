@@ -1,5 +1,5 @@
-body {
-  background-color: #FAFAFA;
+.container {
+  max-width: 750px;
 }
 
 .btn .fa {
@@ -17,4 +17,24 @@ body {
 .newfeed {
   max-width: 600px;
   margin: 0 auto;
+}
+
+.table.no-border th,
+.table.no-border td {
+  border: 0;
+}
+
+.feed.panel .table {
+  margin-bottom: 0;
+}
+
+.feed.panel .table th {
+  width: 140px;
+  font-weight: normal;
+  color: gray;
+}
+
+.feed.panel .table th,
+.feed.panel .table td {
+  padding: 2px;
 }
