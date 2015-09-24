@@ -11,4 +11,11 @@ $(function(){
     document.location = "/view/" + feedId;
   });
 
+  $(document).on('click', '.btn-inp-add', function(e){
+    e.preventDefault();
+    var $inp = $(this).closest('.form-group').find('input').first().clone();
+    $inp.val("");
+    $(this).before($inp);
+  });
+
 });

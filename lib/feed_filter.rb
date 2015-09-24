@@ -1,5 +1,6 @@
 require 'rexml/document'
 require 'open-uri'
+require 'active_support/core_ext'
 
 class FeedFilter
 
@@ -54,8 +55,8 @@ class FeedFilter
       f_url: params[:feed_url],
       f_rules: {
         mute: {
-          title: params[:"mute.title"],
-          domain: params[:"mute.domain"]
+          title: params[:"mute.title"].reject(&:blank?),
+          domain: params[:"mute.domain"].reject(&:blank?)
         }
       }
     }

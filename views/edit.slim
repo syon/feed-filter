@@ -6,12 +6,26 @@ form method="POST"
   .form-group
     label Feed URL
     input.form-control type="text" name="feed_url" placeholder="Feed URL" value="#{@feed.feed_url}"
+
   .form-group
     label Muted word in title
-    input.form-control type="text" name="mute.title[]" placeholder="Muted word here" value="#{@feed.filter_rules["mute"]["title"]}"
+    - titles = @feed.filter_rules["mute"]["title"]
+    - unless titles.blank?
+      - titles.each do |t|
+        input.form-control type="text" name="mute.title[]" placeholder="Muted word here" value="#{t}"
+    - else
+      input.form-control type="text" name="mute.title[]" placeholder="Muted word here" value=""
+    button.btn.btn-success.btn-inp-add 追加
+
   .form-group
     label Muted domain in article
-    input.form-control type="text" name="mute.domain[]" placeholder="www.example.com" value="#{@feed.filter_rules["mute"]["domain"]}"
+    - domains = @feed.filter_rules["mute"]["domain"]
+    - unless domains.blank?
+      - domains.each do |d|
+        input.form-control type="text" name="mute.domain[]" placeholder="www.example.com" value="#{d}"
+    - else
+      input.form-control type="text" name="mute.domain[]" placeholder="www.example.com" value=""
+    button.btn.btn-success.btn-inp-add 追加
 
   - if @feed.secret
     .form-group
