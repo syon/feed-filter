@@ -10,7 +10,8 @@ end
 get '/feed/:feed_id' do
   begin
     ff = FeedFilter.new
-    ff.fetch_feed(params[:feed_id])
+    @feed = ff.fetch_feed(params[:feed_id])
+    raise unless @feed
     content = ff.get_filtered_content
     content_type :"application/xml; charset=#{ff.charset}"
     content
@@ -32,17 +33,20 @@ end
 get '/view/:feed_id' do
   ff = FeedFilter.new
   @feed = ff.fetch_feed(params[:feed_id])
+  redirect to('/') unless @feed
   slim :view
 end
 
 get '/edit/:feed_id' do
   ff = FeedFilter.new
   @feed = ff.fetch_feed(params[:feed_id])
+  redirect to('/') unless @feed
   slim :edit
 end
 
 post '/edit/:feed_id' do
   ff = FeedFilter.new
   feed = ff.update(params)
+  redirect to('/') unless feed
   redirect to("/view/#{feed.feed_id}")
 end
