@@ -56,3 +56,13 @@
   font-weight: normal;
   margin-right: 4px;
 }
+
+.footer {
+  margin-top: 3em;
+  padding: 1em 0 4em;
+  background-color: #f2f2f2;
+}
+
+.footer .author a {
+  color: inherit;
+}

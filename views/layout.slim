@@ -9,6 +9,7 @@ html
     script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
     script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"
     link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+    link rel="stylesheet" href="/octicons/octicons.css"
     link rel="stylesheet" href="/app.css"
 
   body
@@ -23,3 +24,13 @@ html
     .container
 
       == yield
+
+
+    .footer
+      hr
+      .container
+        .author.text-center
+          a href="https://github.com/syon"
+            span class="mega-octicon octicon-mark-github"
+            br
+            | syon
