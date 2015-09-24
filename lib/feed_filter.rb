@@ -38,6 +38,16 @@ class FeedFilter
     feed
   end
 
+  def fetch_filtered_titles(params)
+    @feed = create(params)
+    filtering()
+    titles = []
+    @doc.elements.each('//item') do |el|
+      titles << el.elements['title'].text
+    end
+    titles
+  end
+
   def make_feed_args(params)
     {
       f_id: Time.now.to_i,
@@ -52,6 +62,14 @@ class FeedFilter
   end
 
   def get_filtered_content()
+    filtering()
+
+    formatter = REXML::Formatters::Default.new
+    result = formatter.write(@doc.root, '')
+    @doc.xml_decl.to_s + "\n" + result
+  end
+
+  def filtering()
     @feed_url = @feed.feed_url
     @doc = REXML::Document.new(open(@feed_url).read)
     @charset = @doc.xml_decl.encoding
@@ -83,10 +101,6 @@ class FeedFilter
     end
 
     show_all_titles() if @debug
-
-    formatter = REXML::Formatters::Default.new
-    result = formatter.write(@doc.root, '')
-    @doc.xml_decl.to_s + "\n" + result
   end
 
   def clean_url(el)

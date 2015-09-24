@@ -50,3 +50,9 @@ post '/edit/:feed_id' do
   redirect to('/') unless feed
   redirect to("/view/#{feed.feed_id}")
 end
+
+get '/trial' do
+  ff = FeedFilter.new
+  @titles = ff.fetch_filtered_titles(params)
+  @titles.to_json
+end
