@@ -29,12 +29,17 @@
 }
 
 .feed.panel .table th {
-  width: 140px;
-  font-weight: normal;
+  width: 160px;
   color: gray;
+  font-size: 12px;
+  font-weight: normal;
 }
 
 .feed.panel .table th,
 .feed.panel .table td {
   padding: 2px;
+}
+.feed.panel .label {
+  font-weight: normal;
+  margin-right: 4px;
 }

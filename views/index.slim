@@ -7,15 +7,23 @@
     .panel-body
       table.table.no-border
         tr
-          th feed link
+          th フィードリンク
           td
             a href="/feed/#{f["feed_id"]}" = "/feed/#{f["feed_id"]}"
         tr
-          th source feed
+          th ソースフィード
           td = f["feed_url"]
         tr
-          th mute titles
-          td = f["filter_rules"]["mute"]["title"]
+          th ミュート（タイトル）
+          td
+            - titles = f["filter_rules"]["mute"]["title"]
+            - if titles.kind_of?(Array)
+              - titles.each do |t|
+                span.label.label-default = t
         tr
-          th mute domains
-          td = f["filter_rules"]["mute"]["domain"]
+          th ミュート（ドメイン）
+          td
+            - domains = f["filter_rules"]["mute"]["domain"]
+            - if domains.kind_of?(Array)
+              - domains.each do |d|
+                span.label.label-default = d
