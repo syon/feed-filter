@@ -19,7 +19,7 @@ $(function(){
     $inp.focus();
   });
 
-  $(document).on('click', '#trial', function(e){
+  $(document).on('click', '#preview', function(e){
     e.preventDefault();
     $.ajax({
       url: "/preview",
@@ -42,6 +42,16 @@ $(function(){
     }).fail(function(data){
       console.log(data);
     });
+  });
+
+  $(document).on('click', '#delete', function(e){
+    e.preventDefault();
+    var feedId = $('form[name="rffedit"]').data('feedid');
+    var form = document.rffedit;
+    form.action = "/delete/" + feedId;
+    if (confirm("削除します。よろしいですか？")) {
+      form.submit();
+    }
   });
 
 });

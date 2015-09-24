@@ -51,6 +51,12 @@ post '/edit/:feed_id' do
   redirect to("/view/#{feed.feed_id}")
 end
 
+post '/delete/:feed_id' do
+  ff = FeedFilter.new
+  feed = ff.delete(params[:feed_id])
+  redirect to('/')
+end
+
 get '/preview' do
   ff = FeedFilter.new
   @titles = ff.fetch_filtered_titles(params)

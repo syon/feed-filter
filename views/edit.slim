@@ -2,7 +2,7 @@
 
 h1.text-center Edit Filter
 
-form method="POST"
+form name="rffedit" method="POST" data-feedid="#{@feed.feed_id}"
   .form-group
     label Feed URL
     input.form-control type="text" name="feed_url" placeholder="Feed URL" value="#{@feed.feed_url}"
@@ -32,8 +32,9 @@ form method="POST"
       label Secret
       input.form-control type="text" name="secret" placeholder="4 numbers" value=""
 
-  button.btn.btn-default type="submit" Submit
-  button.btn.btn-default#trial Preview
+  button.btn.btn-primary type="submit" Submit
+  button.btn.btn-default#preview Preview
+  button.btn.btn-danger#delete Delete
 
 hr
 
