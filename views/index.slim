@@ -1,5 +1,32 @@
 - content_for :title do "This is :index title" end
 
+.feed.panel.panel-primary
+  .panel-heading
+    h3.panel-title フィードフィルタ
+    a href="/new" class="btn btn-default btn-sm"
+      i.fa.fa-plus
+      | 新規作成
+  .panel-body
+    table.table.no-border
+      tr
+        th フィードリンク
+        td お使いのRSSリーダやFeedlyなどのフィード配信サービスに登録するURLです。
+      tr
+        th ソースフィード
+        td フィルタ対象とするフィードのURLです。
+      tr
+        th ミュート（タイトル）
+        td
+          span.label.label-default = "PR:"
+          span.label.label-default = "ｗｗｗｗ"
+          span.label.label-default = "閲覧注意"
+          span.label.label-default = "The NG Word"
+      tr
+        th ミュート（ドメイン）
+        td
+          span.label.label-default = "example.com"
+          span.label.label-default = "annoying.domain.com"
+
 - @all_feeds.each do |f|
   .feed.panel.panel-default
     .panel-heading
