@@ -1,4 +1,5 @@
-if ENV['RACK_ENV'] == "development"
+if ENV['RACK_ENV'].nil?
+  puts "Dotenv Loading..."
   require 'dotenv'
   Dotenv.load
 end

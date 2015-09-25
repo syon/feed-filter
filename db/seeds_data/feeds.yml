@@ -45,3 +45,13 @@
     mute:
       title:
       domain:
+
+- feed_id: 1443025812
+  feed_url: http://feeds.feedburner.com/SdJapan
+  filter_rules:
+    mute:
+      title:
+        - スタートアップ
+        - ドル
+        - 円
+      domain:
