@@ -54,7 +54,7 @@ class FeedFilter
 
   def fetch_filtered_titles(params)
     @feed = create(params)
-    filtering()
+    filtering({preview: true})
     titles = []
     @doc.elements.each('//item') do |el|
       titles << el.elements['title'].text
@@ -85,12 +85,12 @@ class FeedFilter
     @doc.xml_decl.to_s + "\n" + result
   end
 
-  def filtering()
+  def filtering(option = {})
     @feed_url = @feed.feed_url
     @doc = REXML::Document.new(open(@feed_url).read)
     @charset = @doc.xml_decl.encoding
     @rules = @feed.filter_rules
-    @debug = true
+    @debug = option[:preview]
 
     @doc.elements.each('//item') do |el|
       title = el.elements['title'].text
