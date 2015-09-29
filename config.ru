@@ -1,4 +1,5 @@
 require 'sinatra'
+require "sinatra/cookies"
 require 'sinatra/reloader'
 require 'sinatra/content_for'
 require 'active_record'

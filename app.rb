@@ -1,9 +1,13 @@
 require 'uri'
+require 'active_support/core_ext'
 require_relative 'lib/feed_filter'
 
 get '/' do
+  puts "#{cookies[:recent_ids]}"
+  cookies[:recent_ids] = [] if cookies[:recent_ids].blank?
   @say = "Feed Filter"
-  @all_feeds = Feeds.all
+  recent_ids = cookies[:recent_ids].split '&'
+  @all_feeds = Feeds.where(:feed_id => recent_ids)
   slim :index
 end
 
@@ -27,6 +31,7 @@ end
 post '/new' do
   ff = FeedFilter.new
   @feed = ff.create(params)
+  add_recent(@feed.feed_id)
   redirect to("/view/#{@feed.feed_id}")
 end
 
@@ -47,6 +52,7 @@ end
 post '/edit/:feed_id' do
   ff = FeedFilter.new
   feed = ff.update(params)
+  add_recent(feed.feed_id)
   redirect to('/') unless feed
   redirect to("/view/#{feed.feed_id}")
 end
@@ -54,6 +60,7 @@ end
 post '/delete/:feed_id' do
   ff = FeedFilter.new
   feed = ff.delete(params)
+  del_recent(params[:feed_id])
   redirect to('/')
 end
 
@@ -61,4 +68,18 @@ get '/preview' do
   ff = FeedFilter.new
   @titles = ff.fetch_filtered_titles(params)
   @titles.to_json
+end
+
+def add_recent(feed_id)
+  recent_ids = cookies[:recent_ids].split '&'
+  recent_ids << feed_id
+  recent_ids.uniq!
+  cookies[:recent_ids] = recent_ids
+end
+
+def del_recent(feed_id)
+  recent_ids = cookies[:recent_ids].split '&'
+  idx = recent_ids.find_index(feed_id)
+  recent_ids.delete_at(idx)
+  cookies[:recent_ids] = recent_ids
 end
