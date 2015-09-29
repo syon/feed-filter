@@ -12,6 +12,7 @@ gem 'rake'
 gem 'pg'
 
 group :development, :test do
+  gem 'awesome_print'
   gem 'dotenv'
   gem 'sqlite3' # not supported on Heroku.
 end
