@@ -92,8 +92,10 @@ class FeedFilter
     @rules = @feed.filter_rules
     @debug = option[:preview]
 
-    @doc.elements.each('//item') do |el|
+    entries = get_entries(@doc)
+    entries.each do |el|
       title = el.elements['title'].text
+      puts title
       url = clean_url(el)
       ctt = get_content(el)
 
@@ -119,8 +121,23 @@ class FeedFilter
     show_all_titles() if @debug
   end
 
+  def get_entries(doc)
+    case doc.root.name.downcase
+    when "rdf"
+      puts "--------- RSS 1.0"
+      return doc.get_elements('//item')
+    when "rss"
+      puts "--------- RSS 2.0"
+      return doc.get_elements('//item')
+    when "feed"
+      puts "--------- Atom"
+      return doc.get_elements('//entry')
+    end
+  end
+
   def clean_url(el)
     url = el.elements['link'].text
+    url = el.elements['link'].attribute('href').to_s unless url
     url.gsub! %r{\?ncid=rss_truncated}, ""
     el.elements['link'].text = url
     url
@@ -140,12 +157,12 @@ class FeedFilter
   end
 
   def clean_invalid_content(ctt)
-    ctt.gsub! %r{<[^<]*?\.\.\.$}, ""
+    ctt.gsub! %r{<[^<]*?\.\.\.$}, "" if ctt
   end
 
   def append_hatebu_count(url, ctt)
     cntimg = %{<cite><img src="http://b.hatena.ne.jp/entry/image/#{url}" /></cite>}
-    ctt.gsub! %r{\A}, cntimg
+    ctt.gsub! %r{\A}, cntimg if ctt
   end
 
   def append_hatebu_iframe(url, ctt)
@@ -156,7 +173,7 @@ class FeedFilter
       edited_url = url.gsub %r{http://}, ""
     end
     iframe = %{<iframe src="http://b.hatena.ne.jp/entry/#{edited_url}"></iframe>}
-    ctt << iframe
+    ctt << iframe if ctt
   end
 
   def get_content(el)
@@ -172,7 +189,14 @@ class FeedFilter
       title = el.elements['title'].text
       el.elements['title'].text = "(Filtered) #{title}"
     else
-      @doc.root.elements.delete el
+      case @doc.root.name.downcase
+      when "rdf"
+        @doc.root.elements.delete el
+      when "rss"
+        @doc.root.elements['channel'].delete el
+      when "feed"
+        @doc.root.elements.delete el
+      end
     end
   end
 
