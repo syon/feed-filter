@@ -56,7 +56,7 @@ class FeedFilter
     @feed = create(params)
     filtering({preview: true})
     titles = []
-    @doc.elements.each('//item') do |el|
+    get_entries(@doc).each do |el|
       titles << el.elements['title'].text
     end
     @feed.destroy
@@ -212,7 +212,7 @@ class FeedFilter
       return false unless @rules
       return false unless @rules["mute"]["title"]
       @rules["mute"]["title"].each do |word|
-        return true if title.include? word
+        return true if title.upcase.include? word.upcase
       end
       false
     end
