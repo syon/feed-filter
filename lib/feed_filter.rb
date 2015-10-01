@@ -212,6 +212,7 @@ class FeedFilter
       return false unless @rules
       return false unless @rules["mute"]["title"]
       @rules["mute"]["title"].each do |word|
+        next if word.blank?
         return true if title.upcase.include? word.upcase
       end
       false
