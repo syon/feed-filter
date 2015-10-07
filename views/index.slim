@@ -35,6 +35,11 @@
           span.label.label-default = "example.com"
           span.label.label-default = "annoying.domain.com"
 
+- if @all_feeds.length > 0
+  p.text-center(style="color:#999;")
+    | ここから下は最近あなたが作成・更新したフィルタです。ブラウザのCookieに記録されています。
+  hr
+
 - @all_feeds.each do |f|
   .feed.panel.panel-default
     .panel-heading

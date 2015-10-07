@@ -5,6 +5,10 @@ body {
 .container {
   max-width: 750px;
 }
+hr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #fff;
+}
 
 .btn .fa {
   margin-right: .5em;
