@@ -39,6 +39,7 @@ get '/view/:feed_id' do
   ff = FeedFilter.new
   @feed = ff.fetch_feed(params[:feed_id])
   redirect to('/') unless @feed
+  @titles = ff.view_filtered_titles()
   slim :view
 end
 
@@ -66,7 +67,7 @@ end
 
 get '/preview' do
   ff = FeedFilter.new
-  @titles = ff.fetch_filtered_titles(params)
+  @titles = ff.preview_filtered_titles(params)
   @titles.to_json
 end
 

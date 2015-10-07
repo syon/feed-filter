@@ -52,7 +52,16 @@ class FeedFilter
     feed.destroy
   end
 
-  def fetch_filtered_titles(params)
+  def view_filtered_titles()
+    filtering({preview: true})
+    titles = []
+    get_entries(@doc).each do |el|
+      titles << el.elements['title'].text
+    end
+    titles
+  end
+
+  def preview_filtered_titles(params)
     @feed = create(params)
     filtering({preview: true})
     titles = []

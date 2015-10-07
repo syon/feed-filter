@@ -39,7 +39,8 @@ hr {
   margin-left: 20px;
 }
 
-#trial-result .filtered {
+#preview-result .filtered {
+  color: gray;
   text-decoration: line-through;
 }
 

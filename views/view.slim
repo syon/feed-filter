@@ -3,7 +3,9 @@
 .feed.panel.panel-default
   .panel-heading
     h3.panel-title = @feed.feed_id
-    a href="/edit/#{@feed.feed_id}" class="btn btn-default btn-sm" 編集
+    a href="/edit/#{@feed.feed_id}" class="btn btn-primary btn-sm"
+      i.fa.fa-pencil
+      | 編集
   .panel-body
     table.table.no-border
       tr
@@ -30,3 +32,12 @@
       tr
         th パスワード
         td = @feed.secret.nil? ? "なし" : "あり"
+
+hr
+
+ul#preview-result
+  - @titles.each do |t|
+    - if t.match /^\(Filtered\)/
+      li.filtered = t
+    - else
+      li = t

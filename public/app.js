@@ -21,27 +21,10 @@ $(function(){
 
   $(document).on('click', '#preview', function(e){
     e.preventDefault();
-    $.ajax({
-      url: "/preview",
-      dataType:'json',
-      data: {
-        "feed_url": $('[name="feed_url"]').val(),
-        "mute.title[]": _.map($('[name="mute.title[]"]'),function(d){return(d.value);}),
-        "mute.domain[]": _.map($('[name="mute.domain[]"]'),function(d){return(d.value);})
-      }
-    }).done(function(data){
-      var titles = data;
-      $('#trial-result').empty();
-      $.each(titles, function(i,title){
-        var $li = $('<li>'+title+'</li>');
-        if (title.match(/^\(Filtered\)/)) {
-          $li.addClass('filtered');
-        }
-        $('#trial-result').append($li);
-      });
-    }).fail(function(data){
-      console.log(data);
-    });
+    var feedUrl = $('[name="feed_url"]').val();
+    var titles = _.map($('[name="mute.title[]"]'),function(d){return(d.value);});
+    var domains = _.map($('[name="mute.domain[]"]'),function(d){return(d.value);});
+    preview(feedUrl, titles, domains);
   });
 
   $(document).on('click', '#delete', function(e){
@@ -55,3 +38,27 @@ $(function(){
   });
 
 });
+
+function preview(feedUrl, titles, domains) {
+  $.ajax({
+    url: "/preview",
+    dataType:'json',
+    data: {
+      "feed_url": feedUrl,
+      "mute.title[]": titles,
+      "mute.domain[]": domains
+    }
+  }).done(function(data){
+    var titles = data;
+    $('#trial-result').empty();
+    $.each(titles, function(i,title){
+      var $li = $('<li>'+title+'</li>');
+      if (title.match(/^\(Filtered\)/)) {
+        $li.addClass('filtered');
+      }
+      $('#preview-result').append($li);
+    });
+  }).fail(function(data){
+    console.log(data);
+  });
+}

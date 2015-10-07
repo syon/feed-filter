@@ -44,7 +44,9 @@
   .feed.panel.panel-default
     .panel-heading
       h3.panel-title = f["feed_id"]
-      a href="/edit/#{f["feed_id"]}" class="btn btn-default btn-sm" 編集
+      a href="/view/#{f["feed_id"]}" class="btn btn-default btn-sm"
+        i.fa.fa-chevron-right
+        | 詳細
     .panel-body
       table.table.no-border
         tr
