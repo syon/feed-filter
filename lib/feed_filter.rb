@@ -241,7 +241,7 @@ class FeedFilter
 
     def make_compact(arr)
       unless arr.blank?
-        arr.reject(&:blank?)
+        arr = arr.reject(&:blank?)
       end
       arr
     end
