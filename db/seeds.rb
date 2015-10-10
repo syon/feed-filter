@@ -9,7 +9,8 @@ feeds.each do |f|
     :feed_id => f["feed_id"],
     :feed_url => f["feed_url"],
     :filter_rules => f["filter_rules"],
-    :secret => f["secret"]
+    :secret => f["secret"],
+    :fetched_at => f["fetched_at"]
   )
 end
 

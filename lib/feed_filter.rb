@@ -11,6 +11,8 @@ class FeedFilter
 
   def fetch_feed(feed_id)
     @feed = Feeds.where(:feed_id => feed_id.to_i).first
+    @feed.fetched_at = Time.now
+    @feed.save!
   end
 
   def create(params)
