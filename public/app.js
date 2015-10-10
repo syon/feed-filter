@@ -50,7 +50,7 @@ function preview(feedUrl, titles, domains) {
     }
   }).done(function(data){
     var titles = data;
-    $('#trial-result').empty();
+    $('#preview-result').empty();
     $.each(titles, function(i,title){
       var $li = $('<li>'+title+'</li>');
       if (title.match(/^\(Filtered\)/)) {
