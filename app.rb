@@ -29,6 +29,7 @@ get '/new' do
 end
 
 post '/new' do
+  redirect to('/') unless guard(params)
   ff = FeedFilter.new
   @feed = ff.create(params)
   add_recent(@feed.feed_id)
@@ -51,6 +52,7 @@ get '/edit/:feed_id' do
 end
 
 post '/edit/:feed_id' do
+  redirect to('/') unless guard(params)
   ff = FeedFilter.new
   feed = ff.update(params)
   add_recent(feed.feed_id)
@@ -66,6 +68,7 @@ post '/delete/:feed_id' do
 end
 
 get '/preview' do
+  return unless guard(params)
   ff = FeedFilter.new
   @titles = ff.preview_filtered_titles(params)
   @titles.to_json
@@ -87,4 +90,21 @@ def del_recent(feed_id)
   idx = recent_ids.find_index(feed_id)
   recent_ids.delete_at(idx)
   cookies[:recent_ids] = recent_ids
+end
+
+def guard(params)
+  return false unless valid_url(params[:feed_url])
+  return true
+end
+
+def valid_url(feed_url)
+  begin
+    url = URI.parse(feed_url)
+    req = Net::HTTP.new(url.host, url.port)
+    res = req.request_head(url.path)
+    return true
+  rescue => e
+    p e
+    return false
+  end
 end
