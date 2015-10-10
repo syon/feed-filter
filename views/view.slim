@@ -31,7 +31,7 @@
               span.label.label-default = d
       tr
         th パスワード
-        td = @feed.secret.nil? ? "なし" : "あり"
+        td = @feed.secret.present? ? "あり" : "なし"
 
 hr
 
