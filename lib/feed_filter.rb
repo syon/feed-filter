@@ -104,7 +104,6 @@ class FeedFilter
     entries = get_entries(@doc)
     entries.each do |el|
       title = el.elements['title'].text
-      puts title
       url = clean_url(el)
       ctt = get_content(el)
 
@@ -127,7 +126,7 @@ class FeedFilter
       append_hatebu_iframe(url, ctt)
     end
 
-    show_all_titles() if @debug
+    # show_all_titles()
   end
 
   def get_entries(doc)
