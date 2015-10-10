@@ -2,18 +2,28 @@
 
 h2.text-center New Filter
 
-
-form.newfeed method="POST"
+form name="rffedit" method="POST"
   .form-group
     label Feed URL
-    input.form-control type="text" name="feed_url" placeholder="Feed URL"
+    input.form-control type="text" name="feed_url" placeholder="Feed URL" value=""
+
   .form-group
     label Muted word in title
-    input.form-control type="text" name="mute.title[]" placeholder="Muted word here"
+    input.form-control type="text" name="mute.title[]" placeholder="Muted word here" value=""
+    button.btn.btn-success.btn-inp-add 追加
+
   .form-group
     label Muted domain in article
-    input.form-control type="text" name="mute.domain[]" placeholder="www.example.com"
+    input.form-control type="text" name="mute.domain[]" placeholder="www.example.com" value=""
+    button.btn.btn-success.btn-inp-add 追加
+
   .form-group
     label パスワード (option)
     input.form-control type="password" name="secret" placeholder="パスワード（20文字まで）" maxlength="20"
-  button.btn.btn-default type="submit" Submit
+
+  button.btn.btn-primary type="submit" 作成
+  button.btn.btn-default#preview Preview
+
+hr
+
+ul#preview-result

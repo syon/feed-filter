@@ -75,7 +75,11 @@ def add_recent(feed_id)
   recent_ids = cookies[:recent_ids].split '&'
   recent_ids << feed_id
   recent_ids.uniq!
-  cookies[:recent_ids] = recent_ids
+  response.set_cookie("recent_ids", {
+    :value => recent_ids,
+    :path => "/",
+    :expires => Time.now + (3600 * 24 * 14)
+  })
 end
 
 def del_recent(feed_id)
