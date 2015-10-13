@@ -14,6 +14,10 @@ hr {
   margin-right: .5em;
 }
 
+::-webkit-input-placeholder {
+  color: #bbb !important;
+}
+
 .navbar-inverse {
   border: 0;
   border-radius: 0;

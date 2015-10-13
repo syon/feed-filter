@@ -8,13 +8,13 @@ form name="rffedit" method="POST" data-feedid="#{@feed.feed_id}"
     input.form-control type="text" name="feed_url" placeholder="Feed URL" value="#{@feed.feed_url}"
 
   .form-group
-    label タイトル内に含まれる単語でミュート
+    label タイトル内に含まれるキーワードでミュート（大/小文字区別なし）
     - titles = @feed.filter_rules["mute"]["title"]
     - unless titles.blank?
       - titles.each do |t|
-        input.form-control type="text" name="mute.title[]" placeholder="Muted word here" value="#{t}"
+        input.form-control type="text" name="mute.title[]" placeholder="キーワード" value="#{t}"
     - else
-      input.form-control type="text" name="mute.title[]" placeholder="Muted word here" value=""
+      input.form-control type="text" name="mute.title[]" placeholder="キーワード" value=""
     button.btn.btn-success.btn-inp-add 追加
 
   .form-group
