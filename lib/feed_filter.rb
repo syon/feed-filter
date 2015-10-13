@@ -13,6 +13,7 @@ class FeedFilter
     @feed = Feeds.where(:feed_id => feed_id.to_i).first
     @feed.fetched_at = Time.now
     @feed.save!
+    @feed
   end
 
   def create(params)
