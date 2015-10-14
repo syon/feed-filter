@@ -65,9 +65,21 @@ hr {
   text-decoration: line-through;
 }
 
+.fa-spin {
+  font-size: 20px;
+}
+
 .newfeed {
   max-width: 600px;
   margin: 0 auto;
+}
+
+.form-group label {
+  margin-top: 1em;
+}
+
+.note {
+  color: #767676;
 }
 
 .table.no-border th,

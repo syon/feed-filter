@@ -26,14 +26,16 @@ html
         .collapse.navbar-collapse
           form.rff-view.form-horizontal.navbar-form.navbar-right name="rffview"
             .form-group.form-group-sm
-              input.form-control(name="feed_id" placeholder="1441234567" maxlength="10"
+              input.input-mini.form-control(name="feed_id" placeholder="1441234567" maxlength="10"
               type="text" data-toggle="tooltip" data-placement="bottom"
               title="フィードIDを入力して作成したフィルタの詳細を表示します。")
             button.btn.btn-default.btn-sm type="submit" 表示
 
     .container
       .flash.flash-warn
-        h3 サービス試運転中
+        h3
+          i class="fa fa-flask"
+          | サービス試運転中
         ul
           li 処理仕様は改善を目的として予告なく変更されることがあります。
           li データは可能な限り維持に努めますが、予告なく変更・削除されることがあります。

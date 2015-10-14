@@ -8,6 +8,9 @@
       .form-group
         label RSSフィードのURL
         input.form-control type="text" name="feed_url" placeholder="Feed URL" value=""
+        p.note
+          span style="color:#767676;" はてなブックマーク - 人気エントリー
+          a href="http://feeds.feedburner.com/hatena/b/hotentry" style="margin-left:1em;" http://feeds.feedburner.com/hatena/b/hotentry
 
       .form-group
         label タイトル内に含まれるキーワードでミュート（大/小文字区別なし）
@@ -21,6 +24,10 @@
 
       .form-group
         label パスワード（あとから付与・変更できません）
+        p.note
+          | 編集を制限するためのパスワードです。ロックをかけても、URLがわかれば設定内容は
+          | 誰でも見ることができるのでご注意ください。お試しでのご利用であったり、仕組みや
+          | リスクを理解している方には特にいらないと思います。
         input.form-control type="password" name="secret" placeholder="パスワード（20文字まで）" maxlength="20"
 
       button.btn.btn-primary type="submit" フィルタを作成
