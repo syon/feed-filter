@@ -1,6 +1,7 @@
 body {
-  background-image: url(/bg.png);
-  background-color: #f2f2f2;
+  /*background-image: url(/bg.png);*/
+  /*background-color: #f2f2f2;*/
+  background-color: #fff;
 }
 .container {
   max-width: 750px;
@@ -8,6 +9,10 @@ body {
 hr {
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #fff;
+}
+
+.form-control, input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="tel"], input[type="url"], select, textarea {
+  background-color: #fafafa;
 }
 
 .btn .fa {
