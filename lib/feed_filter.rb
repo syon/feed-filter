@@ -30,7 +30,7 @@ class FeedFilter
 
   def update(params)
     feed = Feeds.where(:feed_id => params[:feed_id].to_i).first
-    if feed.secret
+    if feed.secret.present?
       unless feed.secret == params[:secret]
         puts "Secret unmatched."
         return feed
