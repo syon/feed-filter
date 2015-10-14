@@ -82,6 +82,7 @@ def add_recent(feed_id)
   recent_ids.uniq!
   response.set_cookie("recent_ids", {
     :value => recent_ids,
+    # domain is required on Safari.
     :domain => "syon-feed-filter.herokuapp.com",
     :path => "/",
     :expires => Time.now + (3600 * 24 * 14)
