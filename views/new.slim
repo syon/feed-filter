@@ -22,8 +22,10 @@ form name="rffedit" method="POST"
     input.form-control type="password" name="secret" placeholder="パスワード（20文字まで）" maxlength="20"
 
   button.btn.btn-primary type="submit" 作成
-  button.btn.btn-default#preview プレビュー
 
 hr
+p
+  button#preview.btn.btn-sm.btn-block type="button" プレビュー
+  i.fa.fa-spinner.fa-spin style="display:none;"
 
 ul#preview-result

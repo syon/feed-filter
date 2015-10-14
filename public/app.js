@@ -40,6 +40,8 @@ $(function(){
 });
 
 function preview(feedUrl, titles, domains) {
+  $('#preview').prop('disabled', true);
+  $('.fa-spin').show();
   $.ajax({
     url: "/preview",
     dataType:'json',
@@ -58,7 +60,13 @@ function preview(feedUrl, titles, domains) {
       }
       $('#preview-result').append($li);
     });
+    $('#preview').prop('disabled', false);
+    $('.fa-spin').hide();
+    
   }).fail(function(data){
+    $('#preview').prop('disabled', false);
+    $('.fa-spin').hide();
+    console.error("Preview is failed.");
     console.log(data);
   });
 }

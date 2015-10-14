@@ -85,6 +85,10 @@ hr {
   margin-right: 4px;
 }
 
+#preview-result {
+  margin-left: 15px;
+}
+
 .footer {
   margin-top: 3em;
   padding: 1em 0 4em;
