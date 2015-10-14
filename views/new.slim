@@ -1,31 +1,35 @@
 - content_for :title do "This is :index title" end
 
-h2.text-center New Filter
+.panel.panel-default
+  .panel-heading
+    h3.panel-title New Filter
+  .panel-body
+    form name="rffedit" method="POST"
+      .form-group
+        label RSSフィードのURL
+        input.form-control type="text" name="feed_url" placeholder="Feed URL" value=""
 
-form name="rffedit" method="POST"
-  .form-group
-    label RSSフィードのURL
-    input.form-control type="text" name="feed_url" placeholder="Feed URL" value=""
+      .form-group
+        label タイトル内に含まれるキーワードでミュート（大/小文字区別なし）
+        input.form-control type="text" name="mute.title[]" placeholder="キーワード" value=""
+        button.btn.btn-success.btn-inp-add 追加
 
-  .form-group
-    label タイトル内に含まれるキーワードでミュート（大/小文字区別なし）
-    input.form-control type="text" name="mute.title[]" placeholder="キーワード" value=""
-    button.btn.btn-success.btn-inp-add 追加
+      .form-group
+        label 記事のリンク先ドメインでミュート
+        input.form-control type="text" name="mute.domain[]" placeholder="www.example.com" value=""
+        button.btn.btn-success.btn-inp-add 追加
 
-  .form-group
-    label 記事のリンク先ドメインでミュート
-    input.form-control type="text" name="mute.domain[]" placeholder="www.example.com" value=""
-    button.btn.btn-success.btn-inp-add 追加
+      .form-group
+        label パスワード（あとから付与・変更できません）
+        input.form-control type="password" name="secret" placeholder="パスワード（20文字まで）" maxlength="20"
 
-  .form-group
-    label パスワード（あとから付与・変更できません）
-    input.form-control type="password" name="secret" placeholder="パスワード（20文字まで）" maxlength="20"
+      p.flash.flash-warn
+        | flash
+      button.btn.btn-primary type="submit" フィルタを作成
 
-  button.btn.btn-primary type="submit" 作成
+    hr
+    p
+      button#preview.btn.btn-sm.btn-block type="button" プレビュー
+      i.fa.fa-spinner.fa-spin style="display:none;"
 
-hr
-p
-  button#preview.btn.btn-sm.btn-block type="button" プレビュー
-  i.fa.fa-spinner.fa-spin style="display:none;"
-
-ul#preview-result
+    ul#preview-result
