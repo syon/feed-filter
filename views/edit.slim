@@ -1,43 +1,47 @@
 - content_for :title do "This is :index title" end
 
-h1.text-center Edit Filter
+.feed.panel.panel-default
+  .panel-heading
+    h3.panel-title Edit Filter
+    button.btn.btn-danger.btn-sm#delete type="button" 削除
+  .panel-body
+    form name="rffedit" method="POST" data-feedid="#{@feed.feed_id}"
+      .form-group
+        label RSSフィードのURL
+        input.form-control type="text" name="feed_url" placeholder="Feed URL" value="#{@feed.feed_url}"
 
-form name="rffedit" method="POST" data-feedid="#{@feed.feed_id}"
-  .form-group
-    label RSSフィードのURL
-    input.form-control type="text" name="feed_url" placeholder="Feed URL" value="#{@feed.feed_url}"
+      .form-group
+        label タイトル内に含まれるキーワードでミュート（大/小文字区別なし）
+        - titles = @feed.filter_rules["mute"]["title"]
+        - unless titles.blank?
+          - titles.each do |t|
+            input.form-control type="text" name="mute.title[]" placeholder="キーワード" value="#{t}"
+        - else
+          input.form-control type="text" name="mute.title[]" placeholder="キーワード" value=""
+        button.btn.btn-success.btn-inp-add 追加
 
-  .form-group
-    label タイトル内に含まれるキーワードでミュート（大/小文字区別なし）
-    - titles = @feed.filter_rules["mute"]["title"]
-    - unless titles.blank?
-      - titles.each do |t|
-        input.form-control type="text" name="mute.title[]" placeholder="キーワード" value="#{t}"
-    - else
-      input.form-control type="text" name="mute.title[]" placeholder="キーワード" value=""
-    button.btn.btn-success.btn-inp-add 追加
+      .form-group
+        label 記事のリンク先ドメインでミュート
+        - domains = @feed.filter_rules["mute"]["domain"]
+        - unless domains.blank?
+          - domains.each do |d|
+            input.form-control type="text" name="mute.domain[]" placeholder="www.example.com" value="#{d}"
+        - else
+          input.form-control type="text" name="mute.domain[]" placeholder="www.example.com" value=""
+        button.btn.btn-success.btn-inp-add 追加
 
-  .form-group
-    label 記事のリンク先ドメインでミュート
-    - domains = @feed.filter_rules["mute"]["domain"]
-    - unless domains.blank?
-      - domains.each do |d|
-        input.form-control type="text" name="mute.domain[]" placeholder="www.example.com" value="#{d}"
-    - else
-      input.form-control type="text" name="mute.domain[]" placeholder="www.example.com" value=""
-    button.btn.btn-success.btn-inp-add 追加
+      .form-group
+        label パスワード（必須）
+        - if @feed.secret.present?
+          input.form-control type="password" name="secret" placeholder="パスワード" maxlength="20" value=""
+        - else
+          input.form-control(type="text" placeholder="なし（あとから付与・変更できません）" disabled)
 
-  .form-group
-    label パスワード（必須）
-    - if @feed.secret.present?
-      input.form-control type="password" name="secret" placeholder="パスワード" maxlength="20" value=""
-    - else
-      input.form-control(type="text" placeholder="なし（あとから付与・変更できません）" disabled)
+      button.btn.btn-primary type="submit" 更新
 
-  button.btn.btn-primary type="submit" 更新
-  button.btn.btn-default#preview プレビュー
-  button.btn.btn-danger#delete 削除
+    hr
+    p
+      button#preview.btn.btn-sm.btn-block type="button" プレビュー
+      i.fa.fa-spinner.fa-spin style="display:none;"
 
-hr
-
-ul#preview-result
+    ul#preview-result
