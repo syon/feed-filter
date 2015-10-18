@@ -51,18 +51,19 @@ function preview(feedUrl, titles, domains) {
       "mute.domain[]": domains
     }
   }).done(function(data){
-    var titles = data;
     $('#preview-result').empty();
-    $.each(titles, function(i,title){
-      var $li = $('<li>'+title+'</li>');
-      if (title.match(/^\(Filtered\)/)) {
+
+    $.each(data, function(i,item){
+      var $li = $('<li>'+item.title+'</li>');
+      if (item.title.match(/^\(Filtered\)/)) {
         $li.addClass('filtered');
       }
       $('#preview-result').append($li);
     });
+
     $('#preview').prop('disabled', false);
     $('.fa-spin').hide();
-    
+
   }).fail(function(data){
     $('#preview').prop('disabled', false);
     $('.fa-spin').hide();

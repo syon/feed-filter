@@ -67,12 +67,17 @@ class FeedFilter
   def preview_filtered_titles(params)
     @feed = create(params)
     filtering({preview: true})
-    titles = []
-    get_entries(@doc).each do |el|
-      titles << el.elements['title'].text
-    end
     @feed.destroy
-    titles
+
+    items = []
+    entries = get_entries(@doc)
+    entries.each do |el|
+      item = {}
+      item[:title] = el.elements['title'].text
+      item[:url] = clean_url(el)
+      items << item
+    end
+    items
   end
 
   def make_feed_args(params)

@@ -72,8 +72,8 @@ end
 get '/preview' do
   return unless guard(params)
   ff = FeedFilter.new
-  @titles = ff.preview_filtered_titles(params)
-  @titles.to_json
+  items = ff.preview_filtered_titles(params)
+  items.to_json
 end
 
 def add_recent(feed_id)
