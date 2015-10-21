@@ -5,10 +5,9 @@ require 'active_support/core_ext'
 require_relative 'lib/feed_filter'
 
 get '/' do
-  puts "#{cookies[:recent_ids]}"
   cookies[:recent_ids] = [] if cookies[:recent_ids].blank?
-  @say = "Feed Filter"
   recent_ids = cookies[:recent_ids].split '&'
+  p recent_ids
   @all_feeds = Feeds.where(:feed_id => recent_ids)
   slim :index
 end
