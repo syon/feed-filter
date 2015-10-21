@@ -28,7 +28,7 @@
             - domains.each do |d|
               span.label.label-default = d
       tr
-        th ミュート（URL）
+        th ミュート（開始URL）
         td
           - url_prefix = @feed.filter_rules["mute"]["url_prefix"]
           - if url_prefix.kind_of?(Array)
