@@ -69,7 +69,7 @@ post '/delete/:feed_id' do
   redirect to('/')
 end
 
-get '/preview' do
+post '/preview' do
   return unless guard(params)
   ff = FeedFilter.new
   items = ff.preview_filtered_titles(params)

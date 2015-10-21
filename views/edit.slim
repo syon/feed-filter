@@ -29,6 +29,16 @@
         button.btn.btn-success.btn-inp-add 追加
 
       .form-group
+        label 記事のリンク先URL開始文字列でミュート
+        - url_prefix = @feed.filter_rules["mute"]["url_prefix"]
+        - unless url_prefix.blank?
+          - url_prefix.each do |d|
+            input.form-control type="text" name="mute.url_prefix[]" placeholder="www.example.com/path/" value="#{d}"
+        - else
+          input.form-control type="text" name="mute.url_prefix[]" placeholder="www.example.com/path/" value=""
+        button.btn.btn-success.btn-inp-add 追加
+
+      .form-group
         label パスワード（必須）
         - if @feed.secret.present?
           input.form-control type="password" name="secret" placeholder="パスワード" maxlength="20" value=""

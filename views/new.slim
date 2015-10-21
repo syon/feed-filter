@@ -21,6 +21,11 @@
         button.btn.btn-success.btn-inp-add 追加
 
       .form-group
+        label 記事のリンク先URL開始文字列でミュート
+        input.form-control type="text" name="mute.url_prefix[]" placeholder="www.example.com/path/" value=""
+        button.btn.btn-success.btn-inp-add 追加
+
+      .form-group
         label パスワード（あとから付与・変更できません）
         p.note
           | 編集を制限するためのパスワードです。ロックをかけても、URLがわかれば設定内容は

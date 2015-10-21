@@ -87,7 +87,8 @@ class FeedFilter
       f_rules: {
         mute: {
           title: make_compact(params[:"mute.title"]),
-          domain: make_compact(params[:"mute.domain"])
+          domain: make_compact(params[:"mute.domain"]),
+          url_prefix: make_compact(params[:"mute.url_prefix"])
         }
       },
       secret: params[:secret]
@@ -120,6 +121,10 @@ class FeedFilter
       end
 
       if is_ng_domain(url)
+        delete_element(el)
+      end
+
+      if is_ng_urlprefix(url)
         delete_element(el)
       end
 
@@ -239,6 +244,17 @@ class FeedFilter
       return false unless @rules
       return false unless @rules["mute"]["domain"]
       return true if @rules["mute"]["domain"].include? domain
+      false
+    end
+
+    def is_ng_urlprefix(url)
+      url_text = url.sub %r{^https?://}, ''
+      return false unless @rules
+      return false unless @rules["mute"]["url_prefix"]
+      @rules["mute"]["url_prefix"].each do |prefix|
+        next if prefix.blank?
+        return true if url_text.start_with? prefix
+      end
       false
     end
 

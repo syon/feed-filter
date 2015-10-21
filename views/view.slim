@@ -28,6 +28,13 @@
             - domains.each do |d|
               span.label.label-default = d
       tr
+        th ミュート（URL）
+        td
+          - url_prefix = @feed.filter_rules["mute"]["url_prefix"]
+          - if url_prefix.kind_of?(Array)
+            - url_prefix.each do |d|
+              span.label.label-default = d
+      tr
         th パスワード
         td = @feed.secret.present? ? "あり" : "なし"
 

@@ -32,6 +32,11 @@
         td
           span.label.label-default = "example.com"
           span.label.label-default = "annoying.domain.com"
+      tr
+        th ミュート（開始URL）
+        td
+          span.label.label-default = "example.com/path/"
+          span.label.label-default = "annoying.domain.com/path/"
 
 - if @all_feeds.length > 0
   p.text-center(style="color:#999;")
@@ -67,4 +72,11 @@
             - domains = f["filter_rules"]["mute"]["domain"]
             - if domains.kind_of?(Array)
               - domains.each do |d|
+                span.label.label-default = d
+        tr
+          th ミュート（開始URL）
+          td
+            - url_prefix = f["filter_rules"]["mute"]["url_prefix"]
+            - if url_prefix.kind_of?(Array)
+              - url_prefix.each do |d|
                 span.label.label-default = d

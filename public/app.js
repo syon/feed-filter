@@ -24,7 +24,8 @@ $(function(){
     var feedUrl = $('[name="feed_url"]').val();
     var titles = _.map($('[name="mute.title[]"]'),function(d){return(d.value);});
     var domains = _.map($('[name="mute.domain[]"]'),function(d){return(d.value);});
-    preview(feedUrl, titles, domains);
+    var urlPrefix = _.map($('[name="mute.url_prefix[]"]'),function(d){return(d.value);});
+    preview(feedUrl, titles, domains, urlPrefix);
   });
 
   $(document).on('click', '#delete', function(e){
@@ -39,16 +40,18 @@ $(function(){
 
 });
 
-function preview(feedUrl, titles, domains) {
+function preview(feedUrl, titles, domains, urlPrefix) {
   $('#preview').prop('disabled', true);
   $('.fa-spin').show();
   $.ajax({
+    type: 'POST',
     url: "/preview",
     dataType:'json',
     data: {
       "feed_url": feedUrl,
       "mute.title[]": titles,
-      "mute.domain[]": domains
+      "mute.domain[]": domains,
+      "mute.url_prefix[]": urlPrefix
     }
   }).done(function(data){
     $('#preview-result').empty();
