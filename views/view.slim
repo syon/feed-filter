@@ -35,6 +35,7 @@ hr
 
 ul#preview-result
   - @titles.each do |t|
+    - next unless t.present?
     - if t.match /^\(Filtered\)/
       li.filtered = t
     - else
