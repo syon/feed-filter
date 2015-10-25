@@ -6,6 +6,11 @@ Provides feeds with your filtering rules.
 
 ### Required
 
+- Node packages  
+```js
+$ npm install --save react react-dom
+$ npm install --global babel
+```
 - Gems
   - bundler
   - foreman
@@ -33,6 +38,9 @@ $ bundle exec rake db:seed
 
 ### Local running
 
+```sh
+$ babel babel --watch --out-dir public
+```
 ```sh
 $ foreman start
 ```
