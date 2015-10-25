@@ -11,7 +11,8 @@ var Comment = React.createClass({
         "h2",
         { className: "commentAuthor" },
         this.props.author
-      )
+      ),
+      this.props.children
     );
   }
 });
@@ -71,4 +72,4 @@ var CommentList = React.createClass({
   }
 });
 
-ReactDOM.render(React.createElement(CommentBox, { url: "/sample.json" }), document.getElementById('hello'));
+ReactDOM.render(React.createElement(CommentBox, { url: "/recent" }), document.getElementById('hello'));
