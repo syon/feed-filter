@@ -130,7 +130,7 @@ class FeedFilter
 
       clean_invalid_content(ctt)
 
-      if @feed_url.start_with? "http://b.hatena.ne.jp"
+      if @feed_url == "http://feeds.feedburner.com/hatena/b/hotentry"
         edit_hotentry(el, ctt)
       else
         append_hatebu_count(url, ctt)
