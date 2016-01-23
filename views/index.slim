@@ -45,48 +45,4 @@
           span.label.label-default = "example.com/path/"
           span.label.label-default = "annoying.domain.com/path/"
 
-
-#hello
-
-- if @all_feeds.length > 0
-  p.text-center(style="color:#999;")
-    | ここから下は最近あなたが作成・更新したフィルタです。ブラウザのCookieに記録されています。
-  hr
-
-- @all_feeds.each do |f|
-  .feed.panel.panel-default
-    .panel-heading
-      h3.panel-title = f["feed_id"]
-      a href="/view/#{f["feed_id"]}" class="btn btn-default btn-sm"
-        i.fa.fa-chevron-right
-        | 詳細
-    .panel-body
-      table.table.no-border
-        tr
-          th フィードリンク
-          td
-            a href="/feed/#{f["feed_id"]}" = "/feed/#{f["feed_id"]}"
-        tr
-          th ソースフィード
-          td = f["feed_url"]
-        tr
-          th ミュート（タイトル）
-          td
-            - titles = f["filter_rules"]["mute"]["title"]
-            - if titles.kind_of?(Array)
-              - titles.each do |t|
-                span.label.label-default = t
-        tr
-          th ミュート（ドメイン）
-          td
-            - domains = f["filter_rules"]["mute"]["domain"]
-            - if domains.kind_of?(Array)
-              - domains.each do |d|
-                span.label.label-default = d
-        tr
-          th ミュート（開始URL）
-          td
-            - url_prefix = f["filter_rules"]["mute"]["url_prefix"]
-            - if url_prefix.kind_of?(Array)
-              - url_prefix.each do |d|
-                span.label.label-default = d
+#feedbox

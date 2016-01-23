@@ -5,9 +5,6 @@ require 'active_support/core_ext'
 require_relative 'lib/feed_filter'
 
 get '/' do
-  cookies[:recent_ids] = [] if cookies[:recent_ids].blank?
-  recent_ids = cookies[:recent_ids].split '&'
-  @all_feeds = Feeds.where(:feed_id => recent_ids)
   slim :index
 end
 
@@ -25,10 +22,10 @@ get '/feed/:feed_id' do
 end
 
 get '/recent' do
-  return %q{[
-    {"key": "1", "author": "Pete Hunt", "text": "This is one comment"},
-    {"key": "2", "author": "Jordan Walke", "text": "This is *another* comment"}
-  ]}
+  cookies[:recent_ids] = [] if cookies[:recent_ids].blank?
+  recent_ids = cookies[:recent_ids].split '&'
+  @all_feeds = Feeds.where(:feed_id => recent_ids)
+  return @all_feeds.to_json
 end
 
 get '/new' do
