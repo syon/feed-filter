@@ -43,7 +43,7 @@ var Comment = React.createClass({
               <td>
               {_.map(mute.domain, function(d, i){
                   return <span key={i} className="label label-default">{d}</span>
-                })}
+              })}
               </td>
             </tr>
             <tr>
@@ -51,7 +51,7 @@ var Comment = React.createClass({
               <td>
               {_.map(mute.url_prefix, function(d, i){
                   return <span key={i} className="label label-default">{d}</span>
-                })}
+              })}
               </td>
             </tr>
           </tbody></table>
