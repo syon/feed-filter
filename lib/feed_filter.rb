@@ -137,6 +137,10 @@ class FeedFilter
       end
 
       append_hatebu_iframe(url, ctt)
+
+      unless @content_exists
+        el.elements['description'].text = ctt
+      end
     end
 
     # show_all_titles()
@@ -178,6 +182,7 @@ class FeedFilter
   end
 
   def clean_invalid_content(ctt)
+    ctt.gsub! %r{<img [^<]*? width="1".*?/>}, "" if ctt
     ctt.gsub! %r{<[^<]*?\.\.\.$}, "" if ctt
   end
 
@@ -199,6 +204,7 @@ class FeedFilter
 
   def get_content(el)
     if el.elements['content:encoded']
+      @content_exists = true
       return el.elements['content:encoded'].text
     elsif el.elements['description']
       return el.elements['description'].text
