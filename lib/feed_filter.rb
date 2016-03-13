@@ -105,7 +105,8 @@ class FeedFilter
 
   def filtering(option = {})
     @feed_url = @feed.feed_url
-    @doc = REXML::Document.new(open(@feed_url).read)
+    uri = open(@feed_url, "User-Agent" => "Safari/601.1")
+    @doc = REXML::Document.new(uri.read)
     @charset = @doc.xml_decl.encoding
     @rules = @feed.filter_rules
     @debug = option[:preview]
