@@ -131,8 +131,10 @@ class FeedFilter
 
       clean_invalid_content(ctt)
 
-      if @feed_url == "http://feeds.feedburner.com/hatena/b/hotentry"
+      if @feed_url.include?("hotentry")
+        puts title
         edit_hotentry(el, ctt)
+        el.elements['content:encoded'].text = ctt
       else
         append_hatebu_count(url, ctt)
       end
