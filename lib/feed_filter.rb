@@ -134,14 +134,15 @@ class FeedFilter
       if @feed_url.include?("hotentry")
         puts title
         edit_hotentry(el, ctt)
-        el.elements['content:encoded'].text = ctt
       else
         append_hatebu_count(url, ctt)
       end
 
       append_hatebu_iframe(url, ctt)
 
-      unless @content_exists
+      if @content_exists
+        el.elements['content:encoded'].text = ctt
+      else
         el.elements['description'].text = ctt
       end
     end
