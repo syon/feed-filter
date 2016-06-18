@@ -11,8 +11,9 @@ gem 'activerecord'
 gem 'rake'
 gem 'pg'
 
+gem 'awesome_print', require: 'ap'
+
 group :development, :test do
-  gem 'awesome_print'
   gem 'dotenv'
   gem 'sqlite3' # not supported on Heroku.
 end
