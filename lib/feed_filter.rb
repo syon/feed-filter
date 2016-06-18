@@ -1,6 +1,7 @@
 require 'rexml/document'
 require 'open-uri'
 require 'active_support/core_ext'
+require 'ap'
 
 class FeedFilter
 
@@ -135,7 +136,7 @@ class FeedFilter
 
       if @feed_url.include?("hotentry")
         puts title
-        edit_hotentry(el, ctt)
+        edit_hotentry(ctt)
       else
         append_hatebu_count(url, ctt)
       end
@@ -174,17 +175,20 @@ class FeedFilter
     url
   end
 
-  def edit_hotentry(el, ctt)
+  def edit_hotentry(ctt)
+    # ap "[S] #{ctt.object_id}"
     ctt.gsub! %r{</?blockquote[^>]*>}i, ""
     ctt.gsub! %r{ (alt|title)=".*?"}i, ""
     ctt.gsub! %r{<p><a href="http://b.hatena.ne.jp/entry/http.*?</p>}i, ""
     cntimg = "<img src=\"http://b.hatena.ne.jp/entry/image/\\1\" /></cite>"
     ctt.gsub! %r{<a href="(.*?)".*?</a></cite>}i, cntimg
 
-    hbc = el.elements['hatena:bookmarkcount'].text
-    if el.elements['description'].text
-      el.elements['description'].text = "[#{hbc}] " + el.elements['description'].text
-    end
+    ctt.gsub! %r{<p>.*?<img src="(.*?)" class="entry-image".*?</p>}i, '<img src="\1">'
+
+    cite = ctt.match(%r{<cite>(.*?)</cite>}i)[1]
+    ctt.gsub! %r{<cite>.*?</cite>}i, ""
+    ctt.sub! %r{<p>}i, "<p>#{cite}</p><p>"
+    # ap "[E] #{ctt.object_id}"
   end
 
   def clean_invalid_content(ctt)
