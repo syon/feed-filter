@@ -136,7 +136,7 @@ class FeedFilter
 
       if @feed_url.include?("hotentry")
         puts title
-        edit_hotentry(ctt)
+        edit_hotentry(ctt, el)
       else
         append_hatebu_count(url, ctt)
       end
@@ -175,20 +175,45 @@ class FeedFilter
     url
   end
 
-  def edit_hotentry(ctt)
+  def edit_hotentry(ctt, el)
+    d = parse_hotentery(ctt, el)
     # ap "[S] #{ctt.object_id}"
-    ctt.gsub! %r{</?blockquote[^>]*>}i, ""
-    ctt.gsub! %r{ (alt|title)=".*?"}i, ""
-    ctt.gsub! %r{<p><a href="http://b.hatena.ne.jp/entry/http.*?</p>}i, ""
-    cntimg = "<img src=\"http://b.hatena.ne.jp/entry/image/\\1\" /></cite>"
-    ctt.gsub! %r{<a href="(.*?)".*?</a></cite>}i, cntimg
-
-    ctt.gsub! %r{<p>.*?<img src="(.*?)" class="entry-image".*?</p>}i, '<img src="\1">'
-
-    cite = ctt.match(%r{<cite>(.*?)</cite>}i)[1]
-    ctt.gsub! %r{<cite>.*?</cite>}i, ""
-    ctt.sub! %r{<p>}i, "<p>#{cite}</p><p>"
+    ctt.replace %(#{d[:heroimg]}<p>#{d[:favicon]} #{d[:hbcount]}</p><p>#{d[:desc]}</p>)
     # ap "[E] #{ctt.object_id}"
+  end
+
+  def parse_hotentery(ctt, el)
+    # Hero Image
+    heroimg = ""
+    heroimg_mch = ctt.match(%r{<img src="(http://cdn-ak.b.st-hatena.com/entryimage/.*?.jpg)" .*? class="entry-image" />}i)
+    if heroimg_mch
+      heroimg_url = heroimg_mch[1]
+      heroimg = %(<img src="#{heroimg_url}">)
+    end
+
+    # Favicon
+    favicon = ""
+    favicon_mch = ctt.match(%r{<img src="(http://cdn-ak.favicon.st-hatena.com.*?)".*?/>}i)
+    if favicon_mch
+      favicon_url = favicon_mch[1]
+      favicon = %(<img src="#{favicon_url}">)
+    end
+
+    # Hatebu Count Image
+    hbcount = ""
+    hbcount_mch = ctt.match(%r{<img src="(http://b.hatena.ne.jp/entry/image/http.*?)".*?/>}i)
+    if hbcount_mch
+      hbcount_url = hbcount_mch[1]
+      hbcount = %(<img src="#{hbcount_url}">)
+    end
+
+    # Result
+    {
+      heroimg: heroimg,
+      favicon: favicon,
+      hbcount: hbcount,
+      desc: el.elements['description'].text
+    }
   end
 
   def clean_invalid_content(ctt)
