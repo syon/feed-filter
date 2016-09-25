@@ -116,8 +116,8 @@ class FeedFilter
 
     entries = get_entries(@doc)
     entries.each do |el|
-      title = el.elements['title'].text
       url = clean_url(el)
+      title = get_title(el, url)
       ctt = get_content(el)
 
       if is_ng_title(title)
@@ -151,6 +151,15 @@ class FeedFilter
     end
 
     # show_all_titles()
+  end
+
+  def get_title(el, url)
+    title = el.elements['title'].text
+    if url.match(%r{https?://anond.hatelabo.jp})
+      title << " :: anond"
+    end
+    el.elements['title'].text = title
+    title
   end
 
   def get_entries(doc)
