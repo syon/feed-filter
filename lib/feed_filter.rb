@@ -144,9 +144,17 @@ class FeedFilter
       append_hatebu_iframe(url, ctt)
 
       if @content_exists
-        el.elements['content:encoded'].text = ctt
+        el.elements['content:encoded'].text.replace(ctt)
       else
-        el.elements['description'].text = ctt
+        el.elements['description'].text.replace(ctt)
+      end
+
+      begin
+        dfc = "<hr>debug: elem content:encoded<br>At: #{Time.now}"
+        el.elements['content:encoded'].text << dfc
+        dfd = "<hr>debug: elem description<br>At: #{Time.now}"
+        el.elements['description'].text = el.elements['description'].text + dfd
+      rescue
       end
     end
 

@@ -3,6 +3,7 @@ require 'sinatra/content_for'
 require 'uri'
 require 'active_support/core_ext'
 require_relative 'lib/feed_filter'
+require 'ap'
 
 get '/' do
   slim :index
@@ -17,6 +18,7 @@ get '/feed/:feed_id' do
     content_type :"application/xml; charset=#{ff.charset}"
     content
   rescue => e
+    ap e
     return "Error"
   end
 end
