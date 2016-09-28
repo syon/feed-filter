@@ -17,20 +17,14 @@ def get_entries(doc)
   end
 end
 
-#feed_url = "http://www.i-mezzo.net/news/index.rdf"
-feed_url = "http://www.i-mezzo.net/news/index.xml"
-#feed_url = "http://www.i-mezzo.net/news/atom.xml"
+feed_url = "http://feeds.feedburner.com/hatena/b/hotentry"
 doc = REXML::Document.new(open(feed_url).read)
 
 ap doc.root.name
 ap doc.root.attribute 'xmlns'
 
 entries = get_entries(doc)
+ap entries
 
-entries.each do |el|
-  # doc.root.delete_element el
-  doc.root.elements['channel'].delete el
-end
-
-result = get_entries(doc)
-ap result
+first = entries.first
+ap first.methods
