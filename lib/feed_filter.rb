@@ -244,16 +244,21 @@ class FeedFilter
       edited_url = url.gsub %r{http://}, ""
     end
     iframe = %{<iframe src="http://b.hatena.ne.jp/entry/#{edited_url}"></iframe>}
-    ctt.text << iframe if ctt
+    ctt.add_text(iframe) if ctt
   end
 
   def get_content(el)
     if el.elements['content:encoded']
       @content_exists = true
       return el.elements['content:encoded']
+    elsif el.elements['content']
+      return el.elements['content']
     elsif el.elements['description']
       return el.elements['description']
+    else
+      ap "!!>> No Content Found. <<!!"
     end
+    nil
   end
 
   def delete_element(el)
