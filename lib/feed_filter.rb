@@ -135,7 +135,6 @@ class FeedFilter
       clean_invalid_content(ctt)
 
       if @feed_url.include?("hotentry")
-        puts title
         edit_hotentry(ctt, el)
       else
         append_hatebu_count(url, ctt)
@@ -143,17 +142,11 @@ class FeedFilter
 
       append_hatebu_iframe(url, ctt)
 
-      if @content_exists
-        el.elements['content:encoded'].text.replace(ctt)
-      else
-        el.elements['description'].text.replace(ctt)
-      end
-
       begin
-        dfc = "<hr>debug: elem content:encoded<br>At: #{Time.now}"
-        el.elements['content:encoded'].text << dfc
-        dfd = "<hr>debug: elem description<br>At: #{Time.now}"
-        el.elements['description'].text = el.elements['description'].text + dfd
+        dfc = "<hr/>debug: elem content:encoded<br/>At: #{Time.now}"
+        el.elements['content:encoded'].add_text(dfc)
+        dfd = "<hr/>debug: elem description<br/>At: #{Time.now}"
+        el.elements['description'].add_text(el.elements['description'].text + dfd)
       rescue
       end
     end
@@ -193,9 +186,9 @@ class FeedFilter
   end
 
   def edit_hotentry(ctt, el)
-    d = parse_hotentery(ctt, el)
+    d = parse_hotentery(ctt.text, el)
     # ap "[S] #{ctt.object_id}"
-    ctt.replace %(#{d[:heroimg]}<p>#{d[:favicon]} #{d[:hbcount]}</p><p>#{d[:desc]}</p>)
+    ctt.text = %(#{d[:heroimg]}<p>#{d[:favicon]} #{d[:hbcount]}</p><p>#{d[:desc]}</p>)
     # ap "[E] #{ctt.object_id}"
   end
 
@@ -234,13 +227,13 @@ class FeedFilter
   end
 
   def clean_invalid_content(ctt)
-    ctt.gsub! %r{<img [^<]*? width="1".*?/>}, "" if ctt
-    ctt.gsub! %r{<[^<]*?\.\.\.$}, "" if ctt
+    ctt.text.gsub! %r{<img [^<]*? width="1".*?/>}, "" if ctt
+    ctt.text.gsub! %r{<[^<]*?\.\.\.$}, "" if ctt
   end
 
   def append_hatebu_count(url, ctt)
     cntimg = %{<cite><img src="http://b.hatena.ne.jp/entry/image/#{url}" /></cite>}
-    ctt.gsub! %r{\A}, cntimg if ctt
+    ctt.text.gsub! %r{\A}, cntimg if ctt
   end
 
   def append_hatebu_iframe(url, ctt)
@@ -251,15 +244,15 @@ class FeedFilter
       edited_url = url.gsub %r{http://}, ""
     end
     iframe = %{<iframe src="http://b.hatena.ne.jp/entry/#{edited_url}"></iframe>}
-    ctt << iframe if ctt
+    ctt.text << iframe if ctt
   end
 
   def get_content(el)
     if el.elements['content:encoded']
       @content_exists = true
-      return el.elements['content:encoded'].text
+      return el.elements['content:encoded']
     elsif el.elements['description']
-      return el.elements['description'].text
+      return el.elements['description']
     end
   end
 
