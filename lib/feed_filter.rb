@@ -141,14 +141,6 @@ class FeedFilter
       end
 
       append_hatebu_iframe(url, ctt)
-
-      begin
-        dfc = "<hr/>debug: elem content:encoded<br/>At: #{Time.now}"
-        el.elements['content:encoded'].add_text(dfc)
-        dfd = "<hr/>debug: elem description<br/>At: #{Time.now}"
-        el.elements['description'].add_text(el.elements['description'].text + dfd)
-      rescue
-      end
     end
 
     # show_all_titles()
