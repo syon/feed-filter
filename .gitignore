@@ -4,3 +4,7 @@
 db/schema.rb
 db/*.sqlite3
 /node_modules/
+
+# Specs
+/spec/feed.sh
+feeds_spec.log
