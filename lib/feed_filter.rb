@@ -219,11 +219,15 @@ class FeedFilter
   end
 
   def clean_invalid_content(ctt)
+    return nil unless ctt
+    return nil unless ctt.text
     ctt.text.gsub! %r{<img [^<]*? width="1".*?/>}, "" if ctt
     ctt.text.gsub! %r{<[^<]*?\.\.\.$}, "" if ctt
   end
 
   def append_hatebu_count(url, ctt)
+    return nil unless ctt
+    return nil unless ctt.text
     cntimg = %{<cite><img src="http://b.hatena.ne.jp/entry/image/#{url}" /></cite>}
     ctt.text.gsub! %r{\A}, cntimg if ctt
   end
