@@ -180,7 +180,13 @@ class FeedFilter
   def edit_hotentry(ctt, el)
     d = parse_hotentery(ctt.text, el)
     # ap "[S] #{ctt.object_id}"
-    ctt.text = %(#{d[:heroimg]}<p>#{d[:favicon]} #{d[:hbcount]}</p><p>#{d[:desc]}</p>)
+    ctt = REXML::CData.new(%(
+      <![CDATA[
+        #{d[:heroimg]}
+        <p>#{d[:favicon]} #{d[:hbcount]}</p>
+        <p>#{d[:desc]}</p>
+      ]]>
+    ))
     # ap "[E] #{ctt.object_id}"
   end
 
