@@ -3,6 +3,7 @@ require 'sinatra/content_for'
 require 'uri'
 require 'active_support/core_ext'
 require_relative 'lib/feed_filter'
+require_relative 'lib/feed_filter2'
 require 'ap'
 
 get '/' do
@@ -11,10 +12,8 @@ end
 
 get '/feed/:feed_id' do
   begin
-    ff = FeedFilter.new
-    @feed = ff.fetch_feed(params[:feed_id])
-    raise unless @feed
-    content = ff.get_filtered_content
+    ff = FeedFilter2.new(params[:feed_id])
+    content = ff.content
     content_type :"application/xml; charset=#{ff.charset}"
     content
   rescue => e
