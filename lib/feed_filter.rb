@@ -141,6 +141,9 @@ class FeedFilter
       end
 
       append_hatebu_iframe(url, ctt)
+
+      edited = get_edited_hotentry(ctt, el)
+      write_content(el, edited)
     end
 
     # show_all_titles()
@@ -180,14 +183,19 @@ class FeedFilter
   def edit_hotentry(ctt, el)
     d = parse_hotentery(ctt.text, el)
     # ap "[S] #{ctt.object_id}"
-    ctt = REXML::CData.new(%(
-      <![CDATA[
-        #{d[:heroimg]}
-        <p>#{d[:favicon]} #{d[:hbcount]}</p>
-        <p>#{d[:desc]}</p>
-      ]]>
-    ))
+    # ctt = REXML::CData.new(%(
+    #   <![CDATA[
+    #     #{d[:heroimg]}
+    #     <p>#{d[:favicon]} #{d[:hbcount]}</p>
+    #     <p>#{d[:desc]}</p>
+    #   ]]>
+    # ))
     # ap "[E] #{ctt.object_id}"
+  end
+
+  def get_edited_hotentry(ctt, el)
+    d = parse_hotentery(ctt.text, el)
+    d
   end
 
   def parse_hotentery(ctt, el)
@@ -260,6 +268,27 @@ class FeedFilter
     else
       ap "!!>> No Content Found. <<!!"
     end
+    nil
+  end
+
+  def write_content(el, d)
+    tgt = nil
+    if el.elements['content:encoded']
+      tgt = el.elements['content:encoded']
+    elsif el.elements['content']
+      tgt = el.elements['content']
+    elsif el.elements['description']
+      tgt = el.elements['description']
+    else
+      ap "!!>> Content Not Found. <<!!"
+    end
+    edited = (%(
+      #{d[:heroimg]}
+      <p>#{d[:favicon]} #{d[:hbcount]}</p>
+      <p>#{d[:desc]}</p>
+    ))
+    tgt.text = nil
+    REXML::CData.new(%(#{edited}), nil, tgt)
     nil
   end
 
