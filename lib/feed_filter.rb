@@ -135,15 +135,21 @@ class FeedFilter
       clean_invalid_content(ctt)
 
       if @feed_url.include?("hotentry")
-        edit_hotentry(ctt, el)
+        d = get_edited_hotentry(ctt, el)
+        edited = (%(
+          #{d[:heroimg]}
+          <p>#{d[:favicon]} #{d[:hbcount]}</p>
+          <p>#{d[:desc]}</p>
+        ))
+        edited << get_hatebu_iframe(url)
+        write_content(el, edited)
       else
-        append_hatebu_count(url, ctt)
+        edited = get_content(el).text
+        edited.gsub!(%r{\A}, get_hatebu_count(url))
+        edited << get_hatebu_iframe(url)
+        write_content(el, edited)
       end
 
-      append_hatebu_iframe(url, ctt)
-
-      edited = get_edited_hotentry(ctt, el)
-      write_content(el, edited)
     end
 
     # show_all_titles()
@@ -178,19 +184,6 @@ class FeedFilter
     url.gsub! %r{\?ncid=rss_truncated}, ""
     el.elements['link'].text = url
     url
-  end
-
-  def edit_hotentry(ctt, el)
-    d = parse_hotentery(ctt.text, el)
-    # ap "[S] #{ctt.object_id}"
-    # ctt = REXML::CData.new(%(
-    #   <![CDATA[
-    #     #{d[:heroimg]}
-    #     <p>#{d[:favicon]} #{d[:hbcount]}</p>
-    #     <p>#{d[:desc]}</p>
-    #   ]]>
-    # ))
-    # ap "[E] #{ctt.object_id}"
   end
 
   def get_edited_hotentry(ctt, el)
@@ -239,27 +232,22 @@ class FeedFilter
     ctt.text.gsub! %r{<[^<]*?\.\.\.$}, "" if ctt
   end
 
-  def append_hatebu_count(url, ctt)
-    return nil unless ctt
-    return nil unless ctt.text
-    cntimg = %{<cite><img src="http://b.hatena.ne.jp/entry/image/#{url}" /></cite>}
-    ctt.text.gsub! %r{\A}, cntimg if ctt
+  def get_hatebu_count(url)
+    %{<cite><img src="http://b.hatena.ne.jp/entry/image/#{url}" /></cite>}
   end
 
-  def append_hatebu_iframe(url, ctt)
+  def get_hatebu_iframe(url)
     edited_url = nil
     if url.start_with? "https"
       edited_url = url.gsub %r{https://}, "s/"
     else
       edited_url = url.gsub %r{http://}, ""
     end
-    iframe = %{<iframe src="http://b.hatena.ne.jp/entry/#{edited_url}"></iframe>}
-    ctt.add_text(iframe) if ctt
+    %{<iframe src="http://b.hatena.ne.jp/entry/#{edited_url}"></iframe>}
   end
 
   def get_content(el)
     if el.elements['content:encoded']
-      @content_exists = true
       return el.elements['content:encoded']
     elsif el.elements['content']
       return el.elements['content']
@@ -271,7 +259,7 @@ class FeedFilter
     nil
   end
 
-  def write_content(el, d)
+  def write_content(el, edited)
     tgt = nil
     if el.elements['content:encoded']
       tgt = el.elements['content:encoded']
@@ -282,11 +270,6 @@ class FeedFilter
     else
       ap "!!>> Content Not Found. <<!!"
     end
-    edited = (%(
-      #{d[:heroimg]}
-      <p>#{d[:favicon]} #{d[:hbcount]}</p>
-      <p>#{d[:desc]}</p>
-    ))
     tgt.text = nil
     REXML::CData.new(%(#{edited}), nil, tgt)
     nil
