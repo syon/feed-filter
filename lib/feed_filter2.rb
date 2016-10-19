@@ -1,3 +1,5 @@
+require_relative 'filter_factory'
+
 class FeedFilter2
 
   attr_accessor :charset
@@ -13,7 +15,7 @@ class FeedFilter2
   end
 
   def get_filtered_content(feed)
-    filtering(feed.feed_url, feed.filter_rules)
+    fetch_feed_and_filter(feed.feed_url, feed.filter_rules)
 
     formatter = REXML::Formatters::Default.new
     result = formatter.write(@doc.root, '')
@@ -22,11 +24,12 @@ class FeedFilter2
 
   private
 
-    def filtering(feed_url, filter_rules)
+    def fetch_feed_and_filter(feed_url, filter_rules)
       uri = open(feed_url, "User-Agent" => "Safari/601.1")
       @doc = REXML::Document.new(uri.read)
       @charset = @doc.xml_decl.encoding
-      ## filter_rules
+      fac = FilterFactory.new(@doc, feed_url, filter_rules)
+      fac.filtering
     end
 
 end
