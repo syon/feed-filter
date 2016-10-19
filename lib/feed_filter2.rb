@@ -5,7 +5,7 @@ class FeedFilter2
   attr_accessor :charset
   attr_accessor :content
 
-  def initialize(feed_id)
+  def prepare_one(feed_id)
     feed = Feeds.where(:feed_id => feed_id.to_i).first
     if feed
       feed.fetched_at = Time.now
@@ -20,6 +20,10 @@ class FeedFilter2
     formatter = REXML::Formatters::Default.new
     result = formatter.write(@doc.root, '')
     @doc.xml_decl.to_s + "\n" + result
+  end
+
+  def get_recent_feeds(ids)
+    Feeds.where(:feed_id => ids)
   end
 
   private

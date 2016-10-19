@@ -12,7 +12,8 @@ end
 
 get '/feed/:feed_id' do
   begin
-    ff = FeedFilter2.new(params[:feed_id])
+    ff = FeedFilter2.new()
+    ff.prepare_one(params[:feed_id])
     content = ff.content
     content_type :"application/xml; charset=#{ff.charset}"
     content
@@ -25,7 +26,8 @@ end
 get '/recent' do
   cookies[:recent_ids] = [] if cookies[:recent_ids].blank?
   recent_ids = cookies[:recent_ids].split '&'
-  @all_feeds = Feeds.where(:feed_id => recent_ids)
+  ff = FeedFilter2.new()
+  @all_feeds = ff.get_recent_feeds(recent_ids)
   return @all_feeds.to_json
 end
 
