@@ -114,6 +114,8 @@ class FeedFilter
     @rules = @feed.filter_rules
     @debug = option[:preview]
 
+    edit_hotentry_once
+
     entries = get_entries(@doc)
     entries.each do |el|
       url = clean_url(el)
@@ -153,6 +155,20 @@ class FeedFilter
     end
 
     # show_all_titles()
+  end
+
+  def edit_hotentry_once()
+    if @feed_url.include?("hotentry")
+      delete_element_by_query('//channel/atom10:link')
+      delete_element_by_query('//channel/feedburner:info')
+    end
+  end
+
+  def delete_element_by_query(q)
+    dels = @doc.get_elements(q)
+    dels.each do |d|
+      d.remove
+    end
   end
 
   def get_title(el, url)
