@@ -20,11 +20,13 @@ class FeedFilter2
     @doc.xml_decl.to_s + "\n" + result
   end
 
-  def filtering(feed_url, filter_rules)
-    uri = open(feed_url, "User-Agent" => "Safari/601.1")
-    @doc = REXML::Document.new(uri.read)
-    @charset = @doc.xml_decl.encoding
-    ## filter_rules
-  end
+  private
+
+    def filtering(feed_url, filter_rules)
+      uri = open(feed_url, "User-Agent" => "Safari/601.1")
+      @doc = REXML::Document.new(uri.read)
+      @charset = @doc.xml_decl.encoding
+      ## filter_rules
+    end
 
 end
