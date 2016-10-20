@@ -69,6 +69,18 @@ class FeedFilter2
     feed
   end
 
+  def delete(params)
+    feed_id = params[:feed_id]
+    feed = Feeds.where(:feed_id => feed_id.to_i).first
+    if feed.secret
+      unless feed.secret == params[:secret]
+        puts "Secret unmatched."
+        return feed
+      end
+    end
+    feed.destroy
+  end
+
   private
 
     def fetch_feed_and_filter(feed_url, filter_rules, is_preview=false)

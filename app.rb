@@ -68,7 +68,7 @@ post '/edit/:feed_id' do
 end
 
 post '/delete/:feed_id' do
-  ff = FeedFilter.new
+  ff = FeedFilter2.new
   feed = ff.delete(params)
   del_recent(params[:feed_id])
   redirect to('/')
