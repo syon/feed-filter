@@ -60,7 +60,7 @@ end
 
 post '/edit/:feed_id' do
   redirect to('/') unless guard(params)
-  ff = FeedFilter.new
+  ff = FeedFilter2.new
   feed = ff.update(params)
   add_recent(feed.feed_id)
   redirect to('/') unless feed

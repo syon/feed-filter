@@ -54,6 +54,21 @@ class FeedFilter2
     )
   end
 
+  def update(params)
+    feed = Feeds.where(:feed_id => params[:feed_id].to_i).first
+    if feed.secret.present?
+      unless feed.secret == params[:secret]
+        puts "Secret unmatched."
+        return feed
+      end
+    end
+    args = make_feed_args(params)
+    feed.feed_url = args[:f_url]
+    feed.filter_rules = args[:f_rules]
+    feed.save!
+    feed
+  end
+
   private
 
     def fetch_feed_and_filter(feed_url, filter_rules, is_preview=false)
