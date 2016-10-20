@@ -32,6 +32,22 @@ class FeedFilter2
     titles
   end
 
+  def preview_filtered_titles(params)
+    @feed = create(params)
+    fetch_feed_and_filter(@feed.feed_url, @feed.filter_rules, true)
+    @feed.destroy
+
+    items = []
+    entries = FilterFactory.get_entries(@doc)
+    entries.each do |el|
+      item = {}
+      item[:title] = el.elements['title'].text
+      item[:url] = FilterFactory.clean_url(el)
+      items << item
+    end
+    items
+  end
+
   def get_filtered_content(feed)
     fetch_feed_and_filter(feed.feed_url, feed.filter_rules)
 

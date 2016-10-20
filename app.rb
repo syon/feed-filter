@@ -76,7 +76,7 @@ end
 
 post '/preview' do
   return unless guard(params)
-  ff = FeedFilter.new
+  ff = FeedFilter2.new
   items = ff.preview_filtered_titles(params)
   items.to_json
 end

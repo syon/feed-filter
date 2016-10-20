@@ -11,7 +11,7 @@ class FilterFactory
     edit_hotentry_once
     entries = self.class.get_entries(@doc)
     entries.each do |el|
-      url = clean_url(el)
+      url = self.class.clean_url(el)
       title = get_title(el, url)
       ctt = get_content(el)
 
@@ -62,6 +62,14 @@ class FilterFactory
     end
   end
 
+  def self.clean_url(el)
+    url = el.elements['link'].text
+    url = el.elements['link'].attribute('href').to_s unless url
+    url.gsub! %r{\?ncid=rss_truncated}, ""
+    el.elements['link'].text = url
+    url
+  end
+
   private
 
     def edit_hotentry_once()
@@ -76,14 +84,6 @@ class FilterFactory
       dels.each do |d|
         d.remove
       end
-    end
-
-    def clean_url(el)
-      url = el.elements['link'].text
-      url = el.elements['link'].attribute('href').to_s unless url
-      url.gsub! %r{\?ncid=rss_truncated}, ""
-      el.elements['link'].text = url
-      url
     end
 
     def get_title(el, url)
