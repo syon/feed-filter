@@ -7,7 +7,7 @@ gem 'unicorn'
 gem 'slim'
 
 gem 'sinatra-activerecord'
-gem 'activerecord'
+gem 'activerecord',  "~>4.2"
 gem 'rake'
 gem 'pg'
 
