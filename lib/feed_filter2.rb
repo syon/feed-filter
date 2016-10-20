@@ -101,7 +101,7 @@ class FeedFilter2
 
     def fetch_feed_and_filter(feed_url, filter_rules, is_preview=false)
       uri = open(feed_url, "User-Agent" => "Safari/601.1")
-      @doc = REXML::Document.new(uri.read)
+      @doc = FilterFactory.make_doc(uri.read)
       @charset = @doc.xml_decl.encoding
       fac = FilterFactory.new(@doc, feed_url, filter_rules)
       fac.filtering(is_preview)

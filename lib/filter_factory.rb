@@ -1,4 +1,10 @@
+require 'rexml/document'
+
 class FilterFactory
+
+  def self.make_doc(uri_read)
+    REXML::Document.new(uri_read)
+  end
 
   def initialize(doc, feed_url, filter_rules)
     @doc = doc
