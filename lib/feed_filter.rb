@@ -102,7 +102,7 @@ class FeedFilter
 
     def fetch_feed_and_filter(feed_url, filter_rules, is_preview=false)
       ap "-- fetch_feed_and_filter ------"
-      ap feed_url
+      ap feed_url.class?
       uri = open(feed_url, "User-Agent" => "Safari/601.1")
       @doc = FilterFactory.make_doc(uri.read)
       @charset = @doc.xml_decl.encoding
