@@ -44,7 +44,7 @@ post '/new' do
 end
 
 get '/view/:feed_id' do
-  ff = FeedFilter.new
+  ff = FeedFilter2.new
   @feed = ff.fetch_feed(params[:feed_id])
   redirect to('/') unless @feed
   @titles = ff.view_filtered_titles()

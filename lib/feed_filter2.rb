@@ -14,6 +14,24 @@ class FeedFilter2
     @content = get_filtered_content(feed)
   end
 
+  def fetch_feed(feed_id)
+    @feed = Feeds.where(:feed_id => feed_id.to_i).first
+    if @feed
+      @feed.fetched_at = Time.now
+      @feed.save!
+    end
+    @feed
+  end
+
+  def view_filtered_titles()
+    fetch_feed_and_filter(@feed.feed_url, @feed.filter_rules, true)
+    titles = []
+    FilterFactory.get_entries(@doc).each do |el|
+      titles << el.elements['title'].text
+    end
+    titles
+  end
+
   def get_filtered_content(feed)
     fetch_feed_and_filter(feed.feed_url, feed.filter_rules)
 
@@ -38,12 +56,12 @@ class FeedFilter2
 
   private
 
-    def fetch_feed_and_filter(feed_url, filter_rules)
+    def fetch_feed_and_filter(feed_url, filter_rules, is_preview=false)
       uri = open(feed_url, "User-Agent" => "Safari/601.1")
       @doc = REXML::Document.new(uri.read)
       @charset = @doc.xml_decl.encoding
       fac = FilterFactory.new(@doc, feed_url, filter_rules)
-      fac.filtering
+      fac.filtering(is_preview)
     end
 
     def make_feed_args(params)

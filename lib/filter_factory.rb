@@ -6,9 +6,10 @@ class FilterFactory
     @rules = filter_rules
   end
 
-  def filtering
+  def filtering(is_preview)
+    @debug = is_preview
     edit_hotentry_once
-    entries = get_entries(@doc)
+    entries = self.class.get_entries(@doc)
     entries.each do |el|
       url = clean_url(el)
       title = get_title(el, url)
@@ -47,6 +48,20 @@ class FilterFactory
     end
   end
 
+  def self.get_entries(doc)
+    case doc.root.name.downcase
+    when "rdf"
+      # RSS 1.0
+      return doc.get_elements('//item')
+    when "rss"
+      # RSS 2.0
+      return doc.get_elements('//item')
+    when "feed"
+      # Atom
+      return doc.get_elements('//entry')
+    end
+  end
+
   private
 
     def edit_hotentry_once()
@@ -60,20 +75,6 @@ class FilterFactory
       dels = @doc.get_elements(q)
       dels.each do |d|
         d.remove
-      end
-    end
-
-    def get_entries(doc)
-      case doc.root.name.downcase
-      when "rdf"
-        puts "--------- RSS 1.0"
-        return doc.get_elements('//item')
-      when "rss"
-        puts "--------- RSS 2.0"
-        return doc.get_elements('//item')
-      when "feed"
-        puts "--------- Atom"
-        return doc.get_elements('//entry')
       end
     end
 
