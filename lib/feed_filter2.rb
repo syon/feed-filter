@@ -26,6 +26,16 @@ class FeedFilter2
     Feeds.where(:feed_id => ids)
   end
 
+  def create(params)
+    args = make_feed_args(params)
+    Feeds.create(
+      :feed_id => args[:f_id],
+      :feed_url => args[:f_url],
+      :filter_rules => args[:f_rules],
+      :secret => args[:secret]
+    )
+  end
+
   private
 
     def fetch_feed_and_filter(feed_url, filter_rules)
@@ -34,6 +44,28 @@ class FeedFilter2
       @charset = @doc.xml_decl.encoding
       fac = FilterFactory.new(@doc, feed_url, filter_rules)
       fac.filtering
+    end
+
+    def make_feed_args(params)
+      {
+        f_id: Time.now.to_i,
+        f_url: params[:feed_url],
+        f_rules: {
+          mute: {
+            title: make_compact(params[:"mute.title"]),
+            domain: make_compact(params[:"mute.domain"]),
+            url_prefix: make_compact(params[:"mute.url_prefix"])
+          }
+        },
+        secret: params[:secret]
+      }
+    end
+
+    def make_compact(arr)
+      unless arr.blank?
+        arr = arr.reject(&:blank?)
+      end
+      arr
     end
 
 end

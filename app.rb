@@ -37,7 +37,7 @@ end
 
 post '/new' do
   redirect to('/') unless guard(params)
-  ff = FeedFilter.new
+  ff = FeedFilter2.new
   @feed = ff.create(params)
   add_recent(@feed.feed_id)
   redirect to("/view/#{@feed.feed_id}")
