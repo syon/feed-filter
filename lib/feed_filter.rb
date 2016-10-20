@@ -1,6 +1,6 @@
 require_relative 'filter_factory'
 
-class FeedFilter2
+class FeedFilter
 
   attr_accessor :charset
   attr_accessor :content

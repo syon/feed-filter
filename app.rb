@@ -2,7 +2,7 @@ require 'sinatra'
 require 'sinatra/content_for'
 require 'uri'
 require 'active_support/core_ext'
-require_relative 'lib/feed_filter2'
+require_relative 'lib/feed_filter'
 require 'ap'
 
 get '/' do
@@ -11,7 +11,7 @@ end
 
 get '/feed/:feed_id' do
   begin
-    ff = FeedFilter2.new()
+    ff = FeedFilter.new()
     ff.prepare_one(params[:feed_id])
     content = ff.content
     content_type :"application/xml; charset=#{ff.charset}"
@@ -25,7 +25,7 @@ end
 get '/recent' do
   cookies[:recent_ids] = [] if cookies[:recent_ids].blank?
   recent_ids = cookies[:recent_ids].split '&'
-  ff = FeedFilter2.new()
+  ff = FeedFilter.new()
   @all_feeds = ff.get_recent_feeds(recent_ids)
   return @all_feeds.to_json
 end
@@ -36,14 +36,14 @@ end
 
 post '/new' do
   redirect to('/') unless guard(params)
-  ff = FeedFilter2.new
+  ff = FeedFilter.new
   @feed = ff.create(params)
   add_recent(@feed.feed_id)
   redirect to("/view/#{@feed.feed_id}")
 end
 
 get '/view/:feed_id' do
-  ff = FeedFilter2.new
+  ff = FeedFilter.new
   @feed = ff.fetch_feed(params[:feed_id])
   redirect to('/') unless @feed
   @titles = ff.view_filtered_titles()
@@ -51,7 +51,7 @@ get '/view/:feed_id' do
 end
 
 get '/edit/:feed_id' do
-  ff = FeedFilter2.new
+  ff = FeedFilter.new
   @feed = ff.fetch_feed(params[:feed_id])
   redirect to('/') unless @feed
   slim :edit
@@ -59,7 +59,7 @@ end
 
 post '/edit/:feed_id' do
   redirect to('/') unless guard(params)
-  ff = FeedFilter2.new
+  ff = FeedFilter.new
   feed = ff.update(params)
   add_recent(feed.feed_id)
   redirect to('/') unless feed
@@ -67,7 +67,7 @@ post '/edit/:feed_id' do
 end
 
 post '/delete/:feed_id' do
-  ff = FeedFilter2.new
+  ff = FeedFilter.new
   feed = ff.delete(params)
   del_recent(params[:feed_id])
   redirect to('/')
@@ -75,7 +75,7 @@ end
 
 post '/preview' do
   return unless guard(params)
-  ff = FeedFilter2.new
+  ff = FeedFilter.new
   items = ff.preview_filtered_titles(params)
   items.to_json
 end
