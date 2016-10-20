@@ -1,3 +1,4 @@
+require 'uri'
 require_relative 'filter_factory'
 
 class FeedFilter
