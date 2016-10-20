@@ -2,7 +2,6 @@ require 'sinatra'
 require 'sinatra/content_for'
 require 'uri'
 require 'active_support/core_ext'
-require_relative 'lib/feed_filter'
 require_relative 'lib/feed_filter2'
 require 'ap'
 
