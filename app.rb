@@ -52,7 +52,7 @@ get '/view/:feed_id' do
 end
 
 get '/edit/:feed_id' do
-  ff = FeedFilter.new
+  ff = FeedFilter2.new
   @feed = ff.fetch_feed(params[:feed_id])
   redirect to('/') unless @feed
   slim :edit
